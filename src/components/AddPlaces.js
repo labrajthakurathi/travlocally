@@ -16,7 +16,7 @@ const AddPlaces = () => {
 
 	const [pred, setPred] = useState("");
 
-	const handleChange = (e) => {
+	const handleChange = async (e) => {
 		var axios = require("axios");
 		var config = {
 			method: "get",
@@ -24,13 +24,20 @@ const AddPlaces = () => {
 			headers: {},
 		};
 
-		axios(config)
-			.then(function (response) {
+		axios(config).then(function (response) {
+			// setPred(response.data.predictions);
+			// response.error?
+			console.log(response);
+			if (response.data.error_message) {
+				console.log(response.data.error_message);
+			} else {
 				setPred(response.data.predictions);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+			}
+		});
+		// .catch(function (error) {
+		// 	console.log(error);
+		// 	console.log("unsuccess");
+		// });
 	};
 
 	const handleFocus = () => {
