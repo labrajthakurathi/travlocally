@@ -27,11 +27,12 @@ const AddPlaces = () => {
 		axios(config).then(function (response) {
 			// setPred(response.data.predictions);
 			// response.error?
-			console.log(response);
+			// console.log(response);
 			if (response.data.error_message) {
-				console.log(response.data.error_message);
+				console.log(response);
 			} else {
 				setPred(response.data.predictions);
+				console.log(response);
 			}
 		});
 		// .catch(function (error) {
