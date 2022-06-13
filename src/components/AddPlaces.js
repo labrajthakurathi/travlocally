@@ -20,7 +20,7 @@ const AddPlaces = () => {
 		var axios = require("axios");
 		var config = {
 			method: "get",
-			url: `maps/api/place/autocomplete/json?input=${e.target.value}&types=(regions)&key=AIzaSyCNj5cCj9VXIO5OdrwKHwKYzYnFO3OGjw8`,
+			url: `maps/api/place/autocomplete/json?input=${e.target.value}&types=(regions)&key=AIzaSyDsAzjjBX9_XgBLeoFzjmQ79nAgwNHzX8o`,
 			headers: {},
 		};
 
@@ -47,7 +47,7 @@ const AddPlaces = () => {
 	const handleCity = async (id, desc, structured_formatting) => {
 		var config = {
 			method: "get",
-			url: `maps/api/place/details/json?place_id=${id}&key=AIzaSyCNj5cCj9VXIO5OdrwKHwKYzYnFO3OGjw8`,
+			url: `maps/api/place/details/json?place_id=${id}&key=AIzaSyDsAzjjBX9_XgBLeoFzjmQ79nAgwNHzX8o`,
 			headers: {},
 		};
 
