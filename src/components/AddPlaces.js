@@ -54,7 +54,7 @@ const AddPlaces = () => {
 	const handleCity = async (id, desc, structured_formatting) => {
 		var config = {
 			method: "get",
-			url: `maps/api/place/details/json?place_id=${id}&key=AIzaSyDsAzjjBX9_XgBLeoFzjmQ79nAgwNHzX8o`,
+			url: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&key=AIzaSyDsAzjjBX9_XgBLeoFzjmQ79nAgwNHzX8o`,
 			headers: {},
 		};
 
