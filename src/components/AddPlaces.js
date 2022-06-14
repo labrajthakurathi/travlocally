@@ -26,23 +26,18 @@ const AddPlaces = () => {
 
 		axios(config)
 			.then(function (response) {
-				// setPred(response.data.predictions);
-				// response.error?
-				// console.log(response);
 				if (response.data.error_message) {
 					console.log(response);
+					console.log("error");
 				} else {
 					setPred(response.data.predictions);
 					console.log(response);
+					console.log("ran");
 				}
 			})
 			.catch(function (err) {
 				console.log(err);
 			});
-		// .catch(function (error) {
-		// 	console.log(error);
-		// 	console.log("unsuccess");
-		// });
 	};
 	console.log(pred);
 	const handleFocus = () => {
@@ -101,7 +96,7 @@ const AddPlaces = () => {
 								<i className='fas fa-search-location'></i>
 							)}
 						</div>
-						{/* 
+
 						{pred.length !== 0 && barFocus == true && (
 							<div className='prediction-list'>
 								<ul>
@@ -122,7 +117,7 @@ const AddPlaces = () => {
 										))}
 								</ul>
 							</div>
-						)} */}
+						)}
 					</div>
 					<div
 						className={
