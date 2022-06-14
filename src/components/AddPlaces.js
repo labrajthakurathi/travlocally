@@ -20,7 +20,7 @@ const AddPlaces = () => {
 		var axios = require("axios");
 		var config = {
 			method: "get",
-			url: `maps/api/place/autocomplete/json?input=${e.target.value}&types=(regions)&key=AIzaSyDsAzjjBX9_XgBLeoFzjmQ79nAgwNHzX8o`,
+			url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${e.target.value}&types=(regions)&key=AIzaSyDsAzjjBX9_XgBLeoFzjmQ79nAgwNHzX8o`,
 			headers: {},
 		};
 
