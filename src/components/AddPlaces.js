@@ -26,6 +26,7 @@ const AddPlaces = () => {
 
 		axios(config)
 			.then(function (response) {
+				console.log(response);
 				if (response.data.error_message) {
 					console.log(response);
 					console.log("error");
@@ -97,7 +98,7 @@ const AddPlaces = () => {
 							)}
 						</div>
 
-						{pred.length !== 0 && barFocus == true && (
+						{/* {pred.length !== 0 && barFocus == true && (
 							<div className='prediction-list'>
 								<ul>
 									{pred &&
@@ -117,7 +118,7 @@ const AddPlaces = () => {
 										))}
 								</ul>
 							</div>
-						)}
+						)} */}
 					</div>
 					<div
 						className={
