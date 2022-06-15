@@ -98,7 +98,7 @@ const AddPlaces = () => {
 							)}
 						</div>
 
-						{/* {pred.length !== 0 && barFocus == true && (
+						{pred.length !== 0 && barFocus == true && (
 							<div className='prediction-list'>
 								<ul>
 									{pred &&
@@ -118,7 +118,7 @@ const AddPlaces = () => {
 										))}
 								</ul>
 							</div>
-						)} */}
+						)}
 					</div>
 					<div
 						className={
