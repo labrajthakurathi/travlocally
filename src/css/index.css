@@ -244,9 +244,9 @@
 
 .header .menu {
   background-color: #f6f6f6;
-  width: 200px;
+  width: 250px;
   background-color: #6c63ff;
-  padding: 20px;
+  padding: 10px;
   position: absolute;
   left: 15px;
   top: 75px;
@@ -257,6 +257,38 @@
   transition: all 200ms ease-in-out;
   -webkit-transform: translateX(-100vw);
           transform: translateX(-100vw);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.header .menu a {
+  text-decoration: none;
+  color: #f6f6f6;
+  font-weight: bolder;
+  padding: 0.5rem;
+  width: 100%;
+  text-align: center;
+  margin: 2px;
+  border-radius: 2px;
+  -webkit-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.header .menu a:hover {
+  background-color: #38009920;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .header .show {

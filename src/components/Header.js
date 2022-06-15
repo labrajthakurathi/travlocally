@@ -32,10 +32,11 @@ const Header = () => {
 	return (
 		<div className='header'>
 			<div className={open ? "menu show" : "menu"}>
-				<ul>
-					<li>Home</li>
-					<li>Contribute</li>
-				</ul>
+				<Link to='/'>Home</Link>
+
+				<Link to='/add-places'>Contribute</Link>
+
+				<Link to='/login'>Login</Link>
 			</div>
 
 			<div
