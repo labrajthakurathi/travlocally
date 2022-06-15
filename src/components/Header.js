@@ -32,11 +32,17 @@ const Header = () => {
 	return (
 		<div className='header'>
 			<div className={open ? "menu show" : "menu"}>
-				<Link to='/'>Home</Link>
+				<Link to='/' onClick={() => setOpen(false)}>
+					Home
+				</Link>
 
-				<Link to='/add-places'>Contribute</Link>
+				<Link to='/add-places' onClick={() => setOpen(false)}>
+					Contribute
+				</Link>
 
-				<Link to='/login'>Login</Link>
+				<Link to='/login' onClick={() => setOpen(false)}>
+					Login
+				</Link>
 			</div>
 
 			<div
