@@ -67,7 +67,7 @@ const AddPlaces = () => {
 				console.log(error);
 			});
 	};
-	console.log(pred);
+	console.log(state.place);
 	return (
 		<>
 			{state.place == null ? (

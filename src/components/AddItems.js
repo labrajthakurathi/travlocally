@@ -88,7 +88,7 @@ const AddPlaces = () => {
 		var axios = require("axios");
 		var config = {
 			method: "get",
-			url: `maps/api/place/autocomplete/json?input=${e.target.value}&types=establishment&location=${state.place.coordinates.lat}%2C${state.place.coordinates.lng}&radius=5000&key=AIzaSyCNj5cCj9VXIO5OdrwKHwKYzYnFO3OGjw8`,
+			url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${e.target.value}&types=establishment&location=${state.place.coordinates.lat}%2C${state.place.coordinates.lng}&radius=5000&key=AIzaSyCNj5cCj9VXIO5OdrwKHwKYzYnFO3OGjw8`,
 			headers: {},
 		};
 

@@ -18,7 +18,7 @@ const AddDetails = ({ setCurrentItem, currentItem, setPred, isEat }) => {
 		e.preventDefault();
 		var config = {
 			method: "get",
-			url: `maps/api/place/details/json?place_id=${currentItem.place_id}&key=AIzaSyCNj5cCj9VXIO5OdrwKHwKYzYnFO3OGjw8`,
+			url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${currentItem.place_id}&key=AIzaSyCNj5cCj9VXIO5OdrwKHwKYzYnFO3OGjw8`,
 			headers: {},
 		};
 

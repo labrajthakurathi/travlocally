@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Loading from "./components/Loading";
 import Login from "./components/Login";
+import MapTesting from "./components/MapTesting";
 import Place from "./components/Place";
 import SignUp from "./components/SignUp";
 
@@ -26,6 +27,7 @@ function App() {
 						<Route exact path='/login' element={<Login />} />
 						<Route exact path='/me' element={<Account />} />
 						<Route exact path='/place/:id' element={<Place />} />
+						<Route exact path='/test' element={<MapTesting />} />
 						<Route exact path='*' element={<Error />} />
 					</Routes>
 				</Router>
