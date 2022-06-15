@@ -54,7 +54,7 @@ const PlaceCard = ({
 					<div className='icon-wrapper'>
 						<i
 							className={isLiked ? "fas fa-thumbs-up lit" : "far fa-thumbs-up "}
-							id={isDisliked && "disabled"}
+							id={isDisliked ? "disabled" : ""}
 							onClick={() => {
 								notLogged
 									? setShowModal(true)
@@ -77,7 +77,7 @@ const PlaceCard = ({
 							className={
 								isDisliked ? "fas fa-thumbs-down lit" : "far fa-thumbs-down"
 							}
-							id={isLiked && "disabled"}
+							id={isLiked ? "disabled" : ""}
 							onClick={() => {
 								notLogged
 									? setShowModal(true)

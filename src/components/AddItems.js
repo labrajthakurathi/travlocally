@@ -264,7 +264,7 @@ const AddPlaces = () => {
 													}
 												></i>
 											</div>
-											<ul className={show1 && "show"}>
+											<ul className={show1 ? "show" : ""}>
 												{eats.map((eat) => (
 													<li>
 														<div className='texts'>
@@ -293,7 +293,7 @@ const AddPlaces = () => {
 													}
 												></i>
 											</div>
-											<ul className={show2 && "show"}>
+											<ul className={show2 ? "show" : ""}>
 												{visits.map((visit) => (
 													<li>
 														<div className='texts'>
@@ -321,7 +321,7 @@ const AddPlaces = () => {
 													}
 												></i>
 											</div>
-											<ul className={show3 && "show"}>
+											<ul className={show3 ? "show" : ""}>
 												{tips.map((tip) => (
 													<li>
 														<p className='address'> {tip.tip}</p>

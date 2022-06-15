@@ -107,20 +107,20 @@ const Place = () => {
 				<ul>
 					<li
 						onClick={() => setType("visit")}
-						className={type == "visit" && "active-category"}
+						className={type == "visit" ? "active-category" : ""}
 					>
 						Attractions <span>{place.est_visit.length}</span>
 					</li>
 					<li
 						onClick={() => setType("eat")}
-						className={type == "eat" && "active-category"}
+						className={type == "eat" ? "active-category" : ""}
 					>
 						Eat <span>{place.est_eat.length}</span>
 					</li>
 
 					<li
 						onClick={() => setType("tips")}
-						className={type == "tips" && "active-category"}
+						className={type == "tips" ? "active-category" : ""}
 					>
 						Tips <span>{place.tips.length}</span>
 					</li>
