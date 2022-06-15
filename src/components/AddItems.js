@@ -265,8 +265,8 @@ const AddPlaces = () => {
 												></i>
 											</div>
 											<ul className={show1 ? "show" : ""}>
-												{eats.map((eat) => (
-													<li>
+												{eats.map((eat, index) => (
+													<li key={index}>
 														<div className='texts'>
 															<p>{eat.name}</p>
 															<a href={eat.map_url} target='_blank'>
@@ -294,8 +294,8 @@ const AddPlaces = () => {
 												></i>
 											</div>
 											<ul className={show2 ? "show" : ""}>
-												{visits.map((visit) => (
-													<li>
+												{visits.map((visit, index) => (
+													<li key={index}>
 														<div className='texts'>
 															<p>{visit.name}</p>
 															<a href={visit.map_url} target='_blank'>
@@ -322,8 +322,8 @@ const AddPlaces = () => {
 												></i>
 											</div>
 											<ul className={show3 ? "show" : ""}>
-												{tips.map((tip) => (
-													<li>
+												{tips.map((tip, index) => (
+													<li key={index}>
 														<p className='address'> {tip.tip}</p>
 													</li>
 												))}

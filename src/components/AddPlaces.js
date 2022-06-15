@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import axios from "axios";
 import Speaker from "../images/speaker.png";
 import placeContext from "./context/place/placeContext";
@@ -6,15 +6,17 @@ import { upload } from "@testing-library/user-event/dist/upload";
 import Loading from "./Loading";
 import Message from "./Message";
 import SelectPhoto from "./SelectPhoto";
+import LoginMessageModal from "./LoginMessageModal";
 
 const AddPlaces = () => {
 	const PlaceContext = useContext(placeContext);
-	const [barFocus, setBarFocus] = useState(false);
-	const [input, setInput] = useState("");
 	const searchBar = useRef();
 	const { setPlace, state } = PlaceContext;
-
+	const [barFocus, setBarFocus] = useState(false);
+	const [input, setInput] = useState("");
 	const [pred, setPred] = useState("");
+	const [notLogged, setNotLogged] = useState(false);
+	const [showModal, setShowModal] = useState(false);
 
 	const handleChange = async (e) => {
 		var axios = require("axios");
@@ -67,13 +69,21 @@ const AddPlaces = () => {
 				console.log(error);
 			});
 	};
-	console.log(state.place);
+	useEffect(() => {
+		state.user ? setNotLogged(false) : setNotLogged(true);
+	}, [state]);
+
+	const handleSearchClick = () => {
+		notLogged ? setShowModal(true) : setShowModal(false);
+	};
+	console.log(notLogged);
 	return (
 		<>
 			{state.place == null ? (
 				<div className='add-places' onClick={handleFocus}>
 					{state.loading && <Loading />}
 					{state.alert != null && <Message />}
+					{showModal && <LoginMessageModal setShowModal={setShowModal} />}
 
 					<div className={barFocus ? "up section-1" : "section-1"}>
 						<p className='heading'>
@@ -86,6 +96,7 @@ const AddPlaces = () => {
 								placeholder='Enter city,state or country'
 								onChange={handleChange}
 								ref={searchBar}
+								onClick={handleSearchClick}
 							/>
 							{barFocus ? (
 								<i

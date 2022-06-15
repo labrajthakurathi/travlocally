@@ -216,7 +216,7 @@ const Place = () => {
 					) : (
 						<div className='no-comments'>
 							<p>No Comments to Show</p>
-							<i class='fas fa-folder-open'></i>
+							<i className='fas fa-folder-open'></i>
 						</div>
 					)}
 				</div>

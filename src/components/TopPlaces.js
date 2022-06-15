@@ -18,14 +18,13 @@ const TopPlaces = () => {
 		};
 		getData();
 	}, []);
-	console.log(topPlaces);
+
 	return (
 		<div className='top-places-section'>
 			<h2>Top Places</h2>
 			<div className='top-places-cards'>
-				{topPlaces.map((place, index) => (
-					<Card1 place={place} key={index} />
-				))}
+				{topPlaces &&
+					topPlaces.map((place, index) => <Card1 place={place} key={index} />)}
 			</div>
 		</div>
 	);
