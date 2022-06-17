@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { onAuthStateChanged, getAuth, signOut } from "firebase/auth";
-import Logo from "../images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 
 import placeContext from "./context/place/placeContext";
@@ -54,7 +53,10 @@ const Header = () => {
 				<span></span>
 			</div>
 			<Link to='/' className='logo'>
-				<img src={Logo} alt='' />
+				<img
+					src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Flogo.png?alt=media&token=6ac11ae2-439b-4992-994b-bf57abcd6908'
+					alt='TravLocally Logo'
+				/>
 			</Link>
 			{state.user && (
 				<div

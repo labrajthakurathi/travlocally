@@ -2,13 +2,9 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
-import { doc } from "firebase/firestore";
-import axios from "axios";
-import Speaker from "../images/speaker.png";
 import placeContext from "./context/place/placeContext";
 import Loading from "./Loading";
 import Message from "./Message";
-import SelectPhoto from "./SelectPhoto";
 import MobileSearch from "./MobileSearch";
 import AddDetails from "./AddDetails";
 import AddTips from "./AddTips";
@@ -85,20 +81,50 @@ const AddPlaces = () => {
 	}, []);
 
 	const handleChange = (e) => {
-		var axios = require("axios");
-		var config = {
-			method: "get",
-			url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${e.target.value}&types=establishment&location=${state.place.coordinates.lat}%2C${state.place.coordinates.lng}&radius=5000&key=AIzaSyCNj5cCj9VXIO5OdrwKHwKYzYnFO3OGjw8`,
-			headers: {},
+		// var axios = require("axios");
+		// var config = {
+		// 	method: "get",
+		// 	url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${e.target.value}&types=establishment&location=${state.place.coordinates.lat}%2C${state.place.coordinates.lng}&radius=5000&key=AIzaSyCNj5cCj9VXIO5OdrwKHwKYzYnFO3OGjw8`,
+		// 	headers: {},
+		// };
+
+		// axios(config)
+		// 	.then(function (response) {
+		// 		setPred(response.data.predictions);
+		// 		console.log(response.data.predictions);
+		// 	})
+		// 	.catch(function (error) {
+		// 		console.log(error);
+		// 	});
+
+		const displaySuggestions = function (predictions, status) {
+			if (
+				status != window.google.maps.places.PlacesServiceStatus.OK ||
+				!predictions
+			) {
+				alert(status);
+				return;
+			}
+
+			setPred(predictions);
+			console.log(pred);
 		};
 
-		axios(config)
-			.then(function (response) {
-				setPred(response.data.predictions);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+		const service = new window.google.maps.places.AutocompleteService();
+		service.getPlacePredictions(
+			{
+				input: e.target.value,
+				types: ["establishment"],
+				bounds: new window.google.maps.LatLngBounds(
+					new window.google.maps.LatLng(
+						state.place.coordinates.lat,
+						state.place.coordinates.lng
+					)
+				),
+				strictBounds: true,
+			},
+			displaySuggestions
+		);
 	};
 
 	const handleFocus = () => {
@@ -112,6 +138,7 @@ const AddPlaces = () => {
 		setBarFocus(false);
 		setPred("");
 	};
+	console.log(state.place);
 
 	return (
 		<>

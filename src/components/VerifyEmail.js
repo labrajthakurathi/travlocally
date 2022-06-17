@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import EmailCurv from "../images/email-curv.png";
 import { getAuth } from "firebase/auth";
 
 const VerifyEmail = ({ setVerify }) => {
@@ -18,7 +17,10 @@ const VerifyEmail = ({ setVerify }) => {
 		<div className='verify-email'>
 			<div className='content'>
 				<div className='top-sec'>
-					<img src={EmailCurv} alt='' />
+					<img
+						src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Femail-curv.png?alt=media&token=af1f247b-bb9e-45c6-b130-99c2889bb403'
+						alt='Travlocally asset'
+					/>
 					<h1>VERIFY YOUR EMAIL</h1>
 					<i className='fa fa-envelope-open-text'></i>
 					<p>An Email with verification link has been sent to you</p>

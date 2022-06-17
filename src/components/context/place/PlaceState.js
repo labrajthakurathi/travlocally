@@ -37,7 +37,14 @@ const PlaceState = (props) => {
 	const [state, dispatch] = useReducer(PlaceReducer, initialState);
 
 	//set place
-	const setPlace = async (city, desc, structured_formatting) => {
+	const setPlace = async (
+		city,
+		desc,
+		structured_formatting,
+		lng,
+		lat,
+		setInput
+	) => {
 		setLoading();
 
 		const citiesRef = collection(db, "places");
@@ -46,18 +53,17 @@ const PlaceState = (props) => {
 		const querySnapshot = await getDocs(q);
 		if (querySnapshot.empty) {
 			const data = {
+				...city,
 				desc: desc,
-				place_id: city.place_id,
-				coordinates: city.geometry.location,
-				address: city.formatted_address,
-				address_components: city.address_components,
-				name: city.name,
+				coordinates: {
+					lng,
+					lat,
+				},
 				structured_formatting: structured_formatting,
 			};
+
 			localStorage.setItem("place_id", city.place_id);
-
 			dispatch({ type: "SET_PLACE", payload: data });
-
 			removeLoading();
 		} else {
 			removeLoading();
@@ -76,16 +82,17 @@ const PlaceState = (props) => {
 		const data = {
 			item_id: item.place_id,
 			name: item.name,
-			lng: item.geometry.location.lng,
-			lat: item.geometry.location.lat,
+			lng: item.coordinates.lng,
+			lat: item.coordinates.lat,
 			address: item.formatted_address,
-			map_url: item.url,
+			map_url: item.map_url,
 			parent_id: state.place.place_id,
 			type: type,
 			about: about,
 			like: 1,
 			dislike: 0,
 		};
+
 		const docRef1 = doc(db, "establishment", item.place_id);
 		const docRef2 = doc(db, "places", state.place.place_id);
 		let req1 = await setDoc(docRef1, data);
@@ -315,14 +322,12 @@ const PlaceState = (props) => {
 	};
 
 	const setLive = (dta) => {
-		console.log(dta);
 		dispatch({ type: "SET_LIVE", payload: dta });
 	};
 
 	const setUser = (user) => {
 		dispatch({ type: "SET_USER", payload: user });
 		localStorage.setItem("uid", user.uid);
-		console.log(user);
 	};
 	const removeUser = () => {
 		dispatch({ type: "REMOVE_USER" });

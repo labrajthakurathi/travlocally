@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import HomeBg from "../images/home-bg.jpg";
-import Curv1 from "../images/curv1.png";
-import Curv2 from "../images/curv2.png";
 
 const Landing = () => {
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -14,7 +11,10 @@ const Landing = () => {
 		<div className='landing-page'>
 			<div className='landing-section-1'>
 				<div className='img'>
-					<img src={HomeBg} alt='' />
+					<img
+						src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Fhome-bg.jpg?alt=media&token=d47ceaf0-7e15-43b9-a2fd-47d9b70de5e2'
+						alt='TravLocally Hero picture'
+					/>
 				</div>
 				<div className='overlay'></div>
 				<div className='overlay-content'>
@@ -37,9 +37,15 @@ const Landing = () => {
 				</div>
 				<div className='curvy'>
 					{screenWidth < 1040 ? (
-						<img src={Curv1} alt='' />
+						<img
+							src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Fcurv1.png?alt=media&token=8249cad3-7838-4c16-aa7a-826a9a62591d'
+							alt='TravLocally'
+						/>
 					) : (
-						<img src={Curv2} alt='' />
+						<img
+							src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Fcurv2.png?alt=media&token=dc901341-bf31-45df-9e96-c43d853caf2e'
+							alt='Travlocally'
+						/>
 					)}
 				</div>
 			</div>

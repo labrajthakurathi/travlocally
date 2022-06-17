@@ -23,10 +23,6 @@ const SelectPhoto = () => {
 		return () => unsub;
 	}, []);
 	const getPic = async () => {
-		// let req = await fetch(
-		// 	`https://api.unsplash.com/search/photos?query=${state.place.name}&page=1&per_page=5&client_id=f3_iwgnQbE-wALyhS6nnPUkjsmMWT9RKbRyJ34h1EJ0`
-		// );
-		// console.log(req);
 		var axios = require("axios");
 		var config = {
 			method: "get",
@@ -42,11 +38,6 @@ const SelectPhoto = () => {
 				console.log(error);
 			});
 	};
-	// useEffect(() => {
-	// 	console.log("loading");
-	// 	console.log(current);
-	// 	console.log(selected);
-	// }, [current]);
 
 	const handleClick = (pic, index, def) => {
 		if (def) {
@@ -54,7 +45,7 @@ const SelectPhoto = () => {
 			setCurrent({ url: pic, selfUpload: false });
 		} else {
 			setSelected(index);
-			console.log(pic);
+
 			setCurrent({ url: pic.urls.regular, selfUpload: false });
 		}
 	};
@@ -65,13 +56,9 @@ const SelectPhoto = () => {
 	};
 
 	const selectUpload = (e) => {
-		// let selected = e.target.files[0];
-		// setFileName(selected.name);
-		// console.log(selected);
 		setFileName(URL.createObjectURL(e.target.files[0]));
 		let selected = e.target.files[0];
 		setCurrent({ url: selected, selfUpload: true });
-		console.log(current);
 	};
 	const handleNext = async () => {
 		let req = await uploadPlace(current);

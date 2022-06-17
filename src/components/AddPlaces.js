@@ -1,8 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import axios from "axios";
-import Speaker from "../images/speaker.png";
 import placeContext from "./context/place/placeContext";
-import { upload } from "@testing-library/user-event/dist/upload";
 import Loading from "./Loading";
 import Message from "./Message";
 import SelectPhoto from "./SelectPhoto";
@@ -18,31 +15,27 @@ const AddPlaces = () => {
 	const [notLogged, setNotLogged] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 
-	const handleChange = async (e) => {
-		var axios = require("axios");
-		var config = {
-			method: "get",
-			url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${e.target.value}&types=(regions)&key=AIzaSyDsAzjjBX9_XgBLeoFzjmQ79nAgwNHzX8o`,
-			headers: {},
+	const handleChange = (e) => {
+		const displaySuggestions = function (predictions, status) {
+			if (
+				status != window.google.maps.places.PlacesServiceStatus.OK ||
+				!predictions
+			) {
+				alert(status);
+				return;
+			}
+
+			setPred(predictions);
 		};
 
-		axios(config)
-			.then(function (response) {
-				console.log(response);
-				if (response.data.error_message) {
-					console.log(response);
-					console.log("error");
-				} else {
-					setPred(response.data.predictions);
-					console.log(response);
-					console.log("ran");
-				}
-			})
-			.catch(function (err) {
-				console.log(err);
-			});
+		const service = new window.google.maps.places.AutocompleteService();
+		service.getPlacePredictions(
+			{ input: e.target.value, types: ["(regions)"] },
+
+			displaySuggestions
+		);
 	};
-	console.log(pred);
+
 	const handleFocus = () => {
 		document.activeElement == searchBar.current ||
 		searchBar.current.value !== ""
@@ -54,21 +47,49 @@ const AddPlaces = () => {
 		setBarFocus(false);
 		setPred("");
 	};
+
 	const handleCity = async (id, desc, structured_formatting) => {
-		var config = {
-			method: "get",
-			url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&key=AIzaSyDsAzjjBX9_XgBLeoFzjmQ79nAgwNHzX8o`,
-			headers: {},
+		var map = new window.google.maps.Map(
+			document.getElementById("map-canvas"),
+			{
+				zoom: 15,
+			}
+		);
+
+		var request = {
+			placeId: id,
+			fields: [
+				"geometry",
+				"formatted_address",
+				"address_components",
+				"name",
+				"place_id",
+			],
 		};
 
-		axios(config)
-			.then(function (response) {
-				setPlace(response.data.result, desc, structured_formatting, setInput);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+		let service = new window.google.maps.places.PlacesService(map);
+		service.getDetails(request, callback);
+
+		function callback(place, status) {
+			if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+				let lng = place.geometry.location.lng();
+				let lat = place.geometry.location.lat();
+				let city = {
+					coordinates: {
+						lng,
+						lat,
+					},
+					formatted_address: place.formatted_address,
+					address_components: place.address_components,
+					name: place.name,
+					place_id: place.place_id,
+				};
+
+				setPlace(city, desc, structured_formatting, lng, lat, setInput);
+			}
+		}
 	};
+
 	useEffect(() => {
 		state.user ? setNotLogged(false) : setNotLogged(true);
 	}, [state]);
@@ -76,7 +97,7 @@ const AddPlaces = () => {
 	const handleSearchClick = () => {
 		notLogged ? setShowModal(true) : setShowModal(false);
 	};
-	console.log(notLogged);
+
 	return (
 		<>
 			{state.place == null ? (
@@ -89,6 +110,7 @@ const AddPlaces = () => {
 						<p className='heading'>
 							Search for the City or Site you want to Add!
 						</p>
+						<div id='map-canvas'></div>
 
 						<div className='search-bar'>
 							<input
@@ -137,7 +159,10 @@ const AddPlaces = () => {
 						}
 					>
 						<div className='section-2'>
-							<img src={Speaker} alt='speaker' />
+							<img
+								src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Fspeaker.png?alt=media&token=9b93ecbd-0aca-447e-bb64-64d49d29b1cb'
+								alt='TravLocally speaker'
+							/>
 						</div>
 						<div className='section-3'>
 							<h1>

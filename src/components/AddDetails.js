@@ -13,23 +13,49 @@ const AddDetails = ({ setCurrentItem, currentItem, setPred, isEat }) => {
 	};
 
 	const handleSubmit = (e) => {
-		const type = isEat ? "eat" : "visit";
-
 		e.preventDefault();
-		var config = {
-			method: "get",
-			url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?place_id=${currentItem.place_id}&key=AIzaSyCNj5cCj9VXIO5OdrwKHwKYzYnFO3OGjw8`,
-			headers: {},
+
+		const type = isEat ? "eat" : "visit";
+		var map = new window.google.maps.Map(
+			document.getElementById("map-canvas"),
+			{
+				zoom: 15,
+			}
+		);
+
+		var request = {
+			placeId: currentItem.place_id,
+			fields: [
+				"geometry",
+				"formatted_address",
+				"address_components",
+				"name",
+				"place_id",
+				"url",
+			],
 		};
 
-		axios(config)
-			.then(function (response) {
-				uploadItem(response.data.result, setCurrentItem, type, about);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+		let service = new window.google.maps.places.PlacesService(map);
+		service.getDetails(request, callback);
 
+		function callback(place, status) {
+			if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+				let lng = place.geometry.location.lng();
+				let lat = place.geometry.location.lat();
+				let city = {
+					coordinates: {
+						lng,
+						lat,
+					},
+					formatted_address: place.formatted_address,
+					address_components: place.address_components,
+					name: place.name,
+					place_id: place.place_id,
+					map_url: place.url,
+				};
+				uploadItem(city, setCurrentItem, type, about);
+			}
+		}
 		setPred([]);
 	};
 
@@ -37,6 +63,7 @@ const AddDetails = ({ setCurrentItem, currentItem, setPred, isEat }) => {
 		<div className='add-details'>
 			{PlaceContext.state.loading && <Loading />}
 			<div className='add-details-content'>
+				<div id='map-canvas'></div>
 				<div className='detail-content-header'>
 					<i className='fas fa-times' onClick={() => setCurrentItem(null)}></i>
 				</div>
