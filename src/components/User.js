@@ -38,7 +38,7 @@ const User = () => {
 						<h1 className='heading'>EXPLORE</h1>
 						<div className='search'>
 							<input type='text' placeholder='Enter city,state or country' />
-							<i className='fas fa-search-location'></i>
+							<i className='fas fa-search-location input-icon'></i>
 						</div>
 					</div>
 				</div>
