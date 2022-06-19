@@ -233,6 +233,7 @@ const PlaceState = (props) => {
 					est_eat: [],
 					est_visit: [],
 					comments: [],
+					tips: [],
 				};
 				let req = await setDoc(docRef, { ...place });
 			}

@@ -41,6 +41,9 @@ const Place = () => {
 		});
 		return unsub;
 	}, []);
+	useEffect(() => {
+		setCurrent(0);
+	}, [type]);
 
 	useEffect(() => {
 		const estRef = collection(db, "establishment");

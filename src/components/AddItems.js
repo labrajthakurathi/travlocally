@@ -1,5 +1,13 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import {
+	collection,
+	query,
+	where,
+	onSnapshot,
+	deleteDoc,
+	doc,
+	setDoc,
+} from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { db } from "../firebase";
 import placeContext from "./context/place/placeContext";
@@ -80,6 +88,40 @@ const AddPlaces = () => {
 		});
 	}, []);
 
+	const handleDel = async (item) => {
+		console.log(item.item_id);
+
+		let type = item.type;
+		let processedAry = [];
+		let finalData;
+
+		if (type === "eat") {
+			processedAry = eats.filter((eat) => eat.item_id != item.item_id);
+			finalData = {
+				...state.place,
+				est_eat: processedAry.map((item) => item.item_id),
+			};
+		} else if (type === "visit") {
+			processedAry = visits.filter((visit) => visit.item_id != item.item_id);
+
+			finalData = {
+				...state.place,
+				est_visit: processedAry.map((item) => item.item_id),
+			};
+		} else {
+			processedAry = tips.filter((tip) => tip.item_id != item.item_id);
+			finalData = {
+				...state.place,
+				tips: processedAry.map((item) => item.item_id),
+			};
+		}
+
+		console.log(finalData);
+
+		await deleteDoc(doc(db, "establishment", item.item_id));
+		await setDoc(doc(db, "places", state.place.place_id), { ...finalData });
+	};
+
 	const handleChange = (e) => {
 		// var axios = require("axios");
 		// var config = {
@@ -138,8 +180,7 @@ const AddPlaces = () => {
 		setBarFocus(false);
 		setPred("");
 	};
-	console.log(state.place);
-
+	console.log(currentItem);
 	return (
 		<>
 			{barFocus == true && screenWidth < 580 ? (
@@ -222,7 +263,7 @@ const AddPlaces = () => {
 											<AddTips setIsTips={setIsTips} isTips={isTips} />
 										) : (
 											<div className='search-result'>
-												<div className='search-bar'>
+												<div className='search-bar add-item-search'>
 													<input
 														type='text'
 														placeholder='Enter the name'
@@ -231,12 +272,12 @@ const AddPlaces = () => {
 													/>
 													{barFocus ? (
 														<i
-															className='fas fa-times'
+															className='fas fa-times input-icon'
 															onClick={handleUnFocus}
 															style={{ color: "#ff29a2" }}
 														></i>
 													) : (
-														<i className='fas fa-search-location'></i>
+														<i className='fas fa-search-location input-icon'></i>
 													)}
 												</div>
 
@@ -296,11 +337,15 @@ const AddPlaces = () => {
 													<li key={index}>
 														<div className='texts'>
 															<p>{eat.name}</p>
-															<a href={eat.map_url} target='_blank'>
-																<i className='fa fa-location-arrow'></i>
-															</a>
 														</div>
-														<p className='address'> {eat.address}</p>
+														<a href={eat.map_url} target='_blank'>
+															<p className='address'> {eat.address}</p>
+														</a>
+
+														<i
+															className='fa fa-trash del'
+															onClick={() => handleDel(eat)}
+														></i>
 													</li>
 												))}
 											</ul>
@@ -325,11 +370,14 @@ const AddPlaces = () => {
 													<li key={index}>
 														<div className='texts'>
 															<p>{visit.name}</p>
-															<a href={visit.map_url} target='_blank'>
-																<i className='fa fa-location-arrow'></i>
-															</a>
 														</div>
-														<p className='address'> {visit.address}</p>
+														<a href={visit.map_url} target='_blank'>
+															<p className='address'> {visit.address}</p>
+														</a>
+														<i
+															className='fa fa-trash del'
+															onClick={() => handleDel(visit)}
+														></i>
 													</li>
 												))}
 											</ul>
@@ -352,6 +400,10 @@ const AddPlaces = () => {
 												{tips.map((tip, index) => (
 													<li key={index}>
 														<p className='address'> {tip.tip}</p>
+														<i
+															className='fa fa-trash del'
+															onClick={() => handleDel(tip)}
+														></i>
 													</li>
 												))}
 											</ul>

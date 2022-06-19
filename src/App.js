@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Account from "./components/Account";
 import AddItems from "./components/AddItems";
 import AddPlaces from "./components/AddPlaces";
+import Blogs from "./components/Blogs";
 import PlaceState from "./components/context/place/PlaceState";
 import Error from "./components/Error";
 
@@ -12,6 +13,7 @@ import Login from "./components/Login";
 import MapTesting from "./components/MapTesting";
 import Place from "./components/Place";
 import SignUp from "./components/SignUp";
+import WriteBlog from "./components/WriteBlog";
 
 function App() {
 	return (
@@ -28,6 +30,8 @@ function App() {
 						<Route exact path='/me' element={<Account />} />
 						<Route exact path='/place/:id' element={<Place />} />
 						<Route exact path='/test' element={<MapTesting />} />
+						<Route exact path='/blogs' element={<Blogs />} />
+						<Route exact path='/blog/write' element={<WriteBlog />} />
 						<Route exact path='*' element={<Error />} />
 					</Routes>
 				</Router>

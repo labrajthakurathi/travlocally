@@ -75,7 +75,7 @@ const MobileSearch = ({ setBarFocus }) => {
 							// ref={searchBar}
 						/>
 
-						<i className='fas fa-search-location'></i>
+						<i className='fas fa-search-location input-icon'></i>
 					</div>
 					{pred.length !== 0 && (
 						<div className='prediction-list'>

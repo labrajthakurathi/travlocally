@@ -582,6 +582,16 @@ body {
 			position: relative;
 
 			.search-bar {
+				input {
+					background-color: #4f48da;
+					border-radius: 5px;
+					&::placeholder {
+						text-align: left;
+					}
+				}
+				.input-icon {
+					color: white;
+				}
 				margin-top: 0;
 				@include tab {
 					width: 480px;
@@ -589,8 +599,9 @@ body {
 				@include desk {
 					width: 580px;
 				}
-				input {
-					background-color: #3800994c !important;
+
+				.add-places-search {
+					background-color: $secondary !important;
 					border-radius: 5px;
 					@include desk {
 						background-color: white !important;
@@ -738,13 +749,14 @@ body {
 
 				li {
 					padding: 1rem 20px;
-					text-align: center;
+					text-align: left;
 					width: 100%;
 					background-color: rgb(255, 255, 255);
 					margin: 0.2rem;
 					border-radius: 10px;
 					width: calc(90% - 2.4rem);
 					max-width: 350px;
+					position: relative;
 					.texts {
 						@include flex;
 						flex-direction: row;
@@ -764,6 +776,23 @@ body {
 						margin: 0;
 						opacity: 0.7;
 						text-align: left;
+						z-index: 1;
+					}
+					.del {
+						position: absolute;
+						right: -10px;
+						top: calc(50% - 1rem);
+						height: 2rem;
+						width: 2rem;
+						background-color: $primary;
+						@include flex;
+						border-radius: 50%;
+
+						font-size: 1rem;
+
+						&:hover {
+							cursor: pointer;
+						}
 					}
 				}
 			}
@@ -1621,3 +1650,347 @@ body {
 	width: 100%;
 	@include flex;
 }
+
+///blog
+.blog-landing {
+	.blog-top-sec {
+		height: 60vh;
+		position: relative;
+		z-index: -1;
+		@include desk {
+			height: 70vh;
+		}
+
+		img {
+			width: 100%;
+		}
+		.pic1 {
+			z-index: -1;
+			height: 59vh;
+			background-attachment: fixed;
+			position: fixed;
+
+			@include tab {
+				object-fit: cover;
+			}
+			@include desk {
+				height: 70vh;
+			}
+		}
+		.pic2 {
+			z-index: 1;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			object-fit: cover;
+			@include desk {
+				max-height: 40vh;
+			}
+		}
+		.top-sec-content {
+			position: absolute;
+			top: 20vh;
+			width: calc(100% - 2rem);
+			padding: 1rem;
+			@include tab {
+				top: 22vh;
+			}
+			.blog-sec-heading {
+				color: white;
+
+				text-shadow: 1px 1px 1px white, 3px 3px 5px black, 3px 3px 5px $primary;
+				font-weight: bold;
+				font-size: 1.6rem;
+				text-align: center;
+				max-width: 500px;
+				margin: 0.5rem auto;
+			}
+			.search-bar {
+				input {
+					background-color: $light;
+
+					&::placeholder {
+						color: $dark;
+						text-align: left;
+					}
+				}
+				i {
+					font-size: 1.5rem;
+					position: absolute;
+					color: $dark;
+					top: 30%;
+					right: 35px;
+					z-index: 1;
+					transition: all 100ms ease-in-out;
+
+					&:hover {
+						cursor: pointer;
+						transform: scale(1.2);
+					}
+				}
+			}
+		}
+	}
+	.blog-popular-sec {
+		background-color: $light;
+		z-index: 2 !important;
+		margin-top: -20px;
+		padding-bottom: 2rem;
+
+		@include tab {
+			padding: 0 1rem;
+			margin-top: -80px;
+		}
+		@include desk {
+			margin: 0 auto;
+			padding: 0 10%;
+			margin-top: -100px;
+		}
+		.sec-heading {
+			margin-left: 0.5rem;
+			margin-top: 0;
+			@include tab {
+				margin-left: 1rem;
+			}
+		}
+		.popular-sec-blogs {
+			@include flex;
+			flex-direction: row;
+
+			flex-wrap: wrap;
+		}
+	}
+}
+/// end blog
+///
+
+///write blog
+.write-blog {
+	width: calc(100% - 2rem);
+	margin-top: 80px;
+	padding: 1rem;
+
+	.title {
+		@include flex;
+		flex-direction: column;
+		width: 100%;
+		align-items: flex-start;
+		margin: 0.5rem auto;
+		justify-content: center;
+
+		max-width: 500px;
+		@include desk {
+			max-width: 700px;
+			margin: 1rem auto;
+		}
+		label {
+			margin-bottom: 0.5rem;
+			font-size: 0.9rem;
+		}
+		textarea {
+			-webkit-appearance: none;
+			width: calc(100% - 2rem);
+			border-radius: 10px;
+			border: 1px solid white;
+			padding: 1rem;
+			max-width: 500px;
+			font-size: 1rem;
+
+			box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.214);
+			&::selection {
+				color: white;
+				background-color: $secondary;
+			}
+			@include desk {
+				max-width: 700px;
+			}
+		}
+	}
+	hr {
+		margin: 1.5rem auto;
+		max-width: 800px;
+	}
+	.tool-selection {
+		width: 300px;
+		background-color: $dark;
+		height: 50px;
+		border-radius: 25px;
+		@include flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+		margin: 0.5rem auto;
+		box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.214);
+		margin-top: 1rem;
+		i {
+			color: white;
+			@include flex;
+			&::after {
+				content: attr(data-name);
+				font-size: 0.6rem;
+			}
+		}
+	}
+	.clear {
+		width: 100%;
+		@include flex;
+		flex-direction: row;
+		gap: 0.5rem;
+		button {
+			@include flex;
+			flex-direction: row;
+		}
+	}
+}
+
+/// end write blog
+
+// upload-select-pic
+.upload-select-pic {
+	.selected-pic-wrapper {
+		position: relative;
+		.selected-pic {
+			height: 150px;
+			border-radius: 0.5rem;
+		}
+		.fa-times {
+			position: absolute;
+			top: -10px;
+			right: -10px;
+			// padding: 10px;
+			height: 30px;
+			width: 30px;
+			background-color: white;
+			border-radius: 50%;
+			@include flex;
+			box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.256);
+			transition: all 200ms ease-in-out;
+			&:hover {
+				cursor: pointer;
+				transform: scale(1.1);
+			}
+		}
+	}
+
+	.upload-buttons {
+		width: 100%;
+		@include flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 0.5rem;
+		@include tab {
+			gap: 2rem;
+		}
+		.upload-wrapper {
+			@include flex;
+			justify-content: center;
+
+			align-items: center;
+			label {
+				padding: 0.5rem 1.5rem !important;
+				font-size: 0.8rem;
+				@include flex;
+				flex-direction: row;
+				margin: 0;
+			}
+			input {
+				display: none;
+			}
+		}
+		button {
+			padding: 0.5rem 1.5rem !important;
+			font-size: 0.8rem;
+			@include flex;
+			flex-direction: row;
+		}
+	}
+	.search-image-modal {
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background-color: black;
+		z-index: 9;
+		-webkit-overflow-scrolling: touch;
+		overflow: scroll;
+
+		overflow-y: scroll !important;
+		-webkit-overflow-scrolling: touch;
+		.fa-times {
+			color: white;
+			font-size: 2rem;
+			position: absolute;
+			top: 0.5rem;
+			right: 1rem;
+			@include desk {
+				top: 2rem;
+				right: 2rem;
+			}
+		}
+		.search-image-section {
+			padding-bottom: 2rem;
+			overflow: scroll;
+			margin: auto;
+			margin-top: 2rem;
+			max-width: 900px;
+
+			h4 {
+				color: white;
+			}
+			.gallery {
+				margin-top: -10px;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+
+				justify-content: center;
+				.search-image-select {
+					width: calc(33% - 0.6rem);
+					height: auto;
+					border-radius: 0.3rem;
+					object-fit: cover;
+					&:hover {
+						cursor: pointer;
+					}
+				}
+				p {
+					color: white;
+				}
+			}
+			.search-bar {
+				margin: 1rem auto;
+				// width: 100%;
+				// background-color: red;
+				form {
+					position: relative;
+
+					input {
+						height: 0.5rem;
+						color: black;
+						background-color: rgb(255, 255, 255);
+						box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+						&::placeholder {
+							color: rgb(35, 35, 35);
+							text-align: left;
+						}
+					}
+					button {
+						position: absolute;
+						top: calc(50% - 25px);
+						right: 0;
+						height: 50px;
+						background-color: $secondary;
+						border-radius: 0 30px 30px 0;
+						color: white;
+						width: 60px;
+						border: none;
+						i {
+							font-size: 1rem;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+// end upload-select-pic

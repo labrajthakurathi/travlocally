@@ -114,6 +114,7 @@ const AddPlaces = () => {
 
 						<div className='search-bar'>
 							<input
+								className='add-places-search'
 								type='text'
 								placeholder='Enter city,state or country'
 								onChange={handleChange}
@@ -122,12 +123,12 @@ const AddPlaces = () => {
 							/>
 							{barFocus ? (
 								<i
-									className='fas fa-times'
+									className='fas fa-times input-icon'
 									onClick={handleUnFocus}
 									style={{ color: "#ff29a2" }}
 								></i>
 							) : (
-								<i className='fas fa-search-location'></i>
+								<i className='fas fa-search-location input-icon'></i>
 							)}
 						</div>
 
