@@ -11,12 +11,15 @@ const Card3 = ({ place }) => {
 		navigate("/add-items");
 		console.log("ren");
 	};
+
 	return (
 		<div className='card-3'>
 			<img src={place.picture} alt='' />
 			<div className='card-3-content'>
 				<div className='card-name'>
-					<h4>{place.desc} </h4>
+					<h4 className={place.desc.length > 24 ? "big-text" : ""}>
+						{place.desc}{" "}
+					</h4>
 				</div>
 				<div className='buttons'>
 					<button className='btn-light' onClick={handleEdit}>

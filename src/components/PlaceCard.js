@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import placeContext from "./context/place/placeContext";
+import FeedbackSec from "./FeedbackSec";
 import LoginMessageModal from "./LoginMessageModal";
 
 const PlaceCard = ({
@@ -50,49 +51,63 @@ const PlaceCard = ({
 					</>
 				)}
 
-				<div className='feedback'>
-					<div className='icon-wrapper'>
-						<i
-							className={isLiked ? "fas fa-thumbs-up lit" : "far fa-thumbs-up "}
-							id={isDisliked ? "disabled" : ""}
-							onClick={() => {
-								notLogged
-									? setShowModal(true)
-									: likeDislike(item.item_id, "like");
-							}}
-						></i>
-						<div className='count'>
-							<small>{item.like}</small>
-							<small>Likes</small>
-						</div>
-					</div>
-
-					<div className='bars'>
-						<div className='bar'></div>
-						<div className='bar' style={{ width: likeRatio + "%" }}></div>
-					</div>
-
-					<div className='icon-wrapper'>
-						<i
-							className={
-								isDisliked ? "fas fa-thumbs-down lit" : "far fa-thumbs-down"
-							}
-							id={isLiked ? "disabled" : ""}
-							onClick={() => {
-								notLogged
-									? setShowModal(true)
-									: likeDislike(item.item_id, "dislike");
-							}}
-						></i>
-						<div className='count'>
-							<small>{item.dislike}</small>
-							<small> Dislikes</small>
-						</div>
-					</div>
-				</div>
+				<FeedbackSec
+					isLiked={isLiked}
+					isDisliked={isDisliked}
+					notLogged={notLogged}
+					setShowModal={setShowModal}
+					likeDislike={likeDislike}
+					item={item}
+					likeRatio={likeRatio}
+					showModal={showModal}
+					collection='establishment'
+				/>
 			</div>
 		</div>
 	);
 };
 
 export default PlaceCard;
+
+{
+	/* <div className='feedback'>
+<div className='icon-wrapper'>
+	<i
+		className={isLiked ? "fas fa-thumbs-up lit" : "far fa-thumbs-up "}
+		id={isDisliked ? "disabled" : ""}
+		onClick={() => {
+			notLogged
+				? setShowModal(true)
+				: likeDislike(item.item_id, "like");
+		}}
+	></i>
+	<div className='count'>
+		<small>{item.like}</small>
+		<small>Likes</small>
+	</div>
+</div>
+
+<div className='bars'>
+	<div className='bar'></div>
+	<div className='bar' style={{ width: likeRatio + "%" }}></div>
+</div>
+
+<div className='icon-wrapper'>
+	<i
+		className={
+			isDisliked ? "fas fa-thumbs-down lit" : "far fa-thumbs-down"
+		}
+		id={isLiked ? "disabled" : ""}
+		onClick={() => {
+			notLogged
+				? setShowModal(true)
+				: likeDislike(item.item_id, "dislike");
+		}}
+	></i>
+	<div className='count'>
+		<small>{item.dislike}</small>
+		<small> Dislikes</small>
+	</div>
+</div>
+</div> */
+}

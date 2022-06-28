@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Loading from "./Loading";
+import Bg from "../images/bg-1.jpg";
 
 const Landing = () => {
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -23,6 +24,7 @@ const Landing = () => {
 						alt='TravLocally Hero picture'
 						onLoad={handleLoad}
 					/>
+					{/* <img src={Bg} alt='TravLocally Hero picture' onLoad={handleLoad} /> */}
 				</div>
 				<div className='overlay'></div>
 				<div className='overlay-content'>

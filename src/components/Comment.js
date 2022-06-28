@@ -4,7 +4,7 @@ import ConfirmModal from "./ConfirmModal";
 import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
 import { db, onSnapshot, storage } from "../firebase";
 
-const Comment = ({ item, place }) => {
+const Comment = ({ item, place, type }) => {
 	const PlaceContext = useContext(placeContext);
 	const { state } = PlaceContext;
 	const [color, setColor] = useState("");
@@ -23,10 +23,10 @@ const Comment = ({ item, place }) => {
 		if (seconds <= 59) {
 			return "just now";
 		} else if (minutes <= 59) {
-			return minutes > 1 ? `${minutes} minutes ago` : `${minutes} minute ago`;
+			return minutes > 1 ? `${minutes} mins ago` : `${minutes} min ago`;
 		} else if (minutes >= 60 && minutes <= 1439) {
 			const stamp = Math.floor(minutes / 60);
-			return stamp > 1 ? `${stamp} hours ago` : `${stamp} hour ago`;
+			return stamp > 1 ? `${stamp} hrs ago` : `${stamp} hr ago`;
 		} else if (minutes >= 1440 && minutes <= 10079) {
 			const stamp = Math.floor(minutes / 1440);
 			return stamp > 1 ? `${stamp} days ago` : `${stamp} day ago`;
@@ -55,12 +55,21 @@ const Comment = ({ item, place }) => {
 		setId(id);
 	};
 	const deleteComment = () => {
-		const ref1 = doc(db, "places", place.place_id);
-		console.log(place.comments);
-		let newArry = place.comments.filter((comment) => comment.id != id);
-		setDoc(ref1, { ...place, comments: newArry }, { merge: true });
-		console.log(newArry);
-		setConfirm(false);
+		if (type === "place") {
+			const ref1 = doc(db, "places", place.place_id);
+			console.log(place.comments);
+			let newArry = place.comments.filter((comment) => comment.id != id);
+			setDoc(ref1, { ...place, comments: newArry }, { merge: true });
+			console.log(newArry);
+			setConfirm(false);
+		} else {
+			const ref1 = doc(db, "blogs", place.blog_id);
+
+			let newArry = place.comments.filter((comment) => comment.id != id);
+			setDoc(ref1, { ...place, comments: newArry }, { merge: true });
+			console.log(newArry);
+			setConfirm(false);
+		}
 	};
 
 	return (

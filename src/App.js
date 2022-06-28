@@ -5,13 +5,14 @@ import AddPlaces from "./components/AddPlaces";
 import Blogs from "./components/Blogs";
 import PlaceState from "./components/context/place/PlaceState";
 import Error from "./components/Error";
-
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Loading from "./components/Loading";
 import Login from "./components/Login";
 import MapTesting from "./components/MapTesting";
 import Place from "./components/Place";
+import Preview from "./components/Preview";
+import ReadBlog from "./components/ReadBlog";
 import SignUp from "./components/SignUp";
 import WriteBlog from "./components/WriteBlog";
 
@@ -29,9 +30,11 @@ function App() {
 						<Route exact path='/login' element={<Login />} />
 						<Route exact path='/me' element={<Account />} />
 						<Route exact path='/place/:id' element={<Place />} />
+						<Route exact path='/blog/:id' element={<ReadBlog />} />
 						<Route exact path='/test' element={<MapTesting />} />
 						<Route exact path='/blogs' element={<Blogs />} />
 						<Route exact path='/blog/write' element={<WriteBlog />} />
+						<Route exact path='/blog/preview' element={<Preview />} />
 						<Route exact path='*' element={<Error />} />
 					</Routes>
 				</Router>

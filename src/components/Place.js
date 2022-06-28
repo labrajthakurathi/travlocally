@@ -146,7 +146,7 @@ const Place = () => {
 						{est &&
 							est.map((item, index) => (
 								<span
-									className={current == index && "active-indicator"}
+									className={current == index ? "active-indicator" : ""}
 									key={index}
 								></span>
 							))}
@@ -214,7 +214,7 @@ const Place = () => {
 								return b - a;
 							})
 							.map((item, index) => (
-								<Comment item={item} key={index} place={place} />
+								<Comment item={item} key={index} place={place} type='place' />
 							))
 					) : (
 						<div className='no-comments'>

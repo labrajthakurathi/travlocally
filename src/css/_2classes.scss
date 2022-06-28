@@ -238,6 +238,9 @@
 				margin: 0;
 				opacity: 0.9;
 			}
+			.big-text {
+				font-size: 0.8rem;
+			}
 		}
 		.buttons {
 			padding-bottom: 1rem;
@@ -558,8 +561,8 @@
 		flex-direction: row;
 		justify-content: flex-start;
 		.sudo-pic {
-			height: 50px;
-			width: 50px;
+			height: 40px;
+			width: 40px;
 			border-radius: 50%;
 			// background-color: hsl(31.770429683753836, 100%, 75%);
 			margin: 0.5rem 0.5rem 0.5rem 0;
@@ -567,6 +570,7 @@
 			p {
 				text-transform: uppercase;
 				font-size: larger;
+				font-size: 0.9rem;
 			}
 		}
 		.name-time {
@@ -608,9 +612,9 @@
 		flex-wrap: wrap;
 		margin: 0;
 		padding: 0;
-		margin-left: 60px;
+		margin-left: 48px;
 		height: auto;
-		margin-top: -2.8rem;
+		margin-top: -2.5rem;
 
 		p {
 			height: auto;
@@ -631,7 +635,12 @@
 	padding: 1.5rem 1rem;
 	margin: 0.5rem auto;
 	max-width: 450px;
+	transition: all 200ms ease-in-out;
 	position: relative;
+	&:hover {
+		cursor: pointer;
+		transform: scale(1.02);
+	}
 	@include tab {
 		width: calc(95% - 4rem);
 		padding: 1.5rem 2rem;
@@ -718,10 +727,11 @@
 				@include flex;
 				flex-direction: row;
 				margin: 0 1rem;
-				font-weight: bold;
+
 				p {
-					opacity: 0.8;
+					opacity: 0.9;
 					margin-left: 0.5rem;
+					font-weight: light;
 				}
 			}
 		}
@@ -754,3 +764,86 @@
 	}
 }
 //pic loader end
+
+///text editor
+.RichEditor-root-wrapper {
+	width: 100%;
+	margin: auto;
+	@include flex;
+	align-items: flex-start;
+	max-width: 900px;
+	margin-top: 1rem auto;
+
+	margin-bottom: 1.5rem;
+}
+
+.RichEditor-root {
+	background: white;
+	font-family: "Georgia", serif;
+	font-size: 14px;
+	margin-top: 1rem;
+	width: calc(100% - 3rem);
+	padding: 1.5rem;
+	border-radius: 10px;
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.045);
+	@include tab {
+		width: calc(100% - 6rem);
+		padding: 2rem 3rem;
+	}
+}
+
+.RichEditor-editor {
+	border-top: 1px solid #ddd;
+	cursor: text;
+	font-size: 16px;
+}
+
+.RichEditor-editor .public-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
+	margin: 0 -15px -15px;
+	padding: 15px;
+}
+
+.RichEditor-editor .public-DraftEditor-content {
+	min-height: 150px;
+}
+
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+	display: none;
+}
+
+.RichEditor-editor .RichEditor-blockquote {
+	border-left: 5px solid #eee;
+	color: #666;
+	font-family: "Hoefler Text", "Georgia", serif;
+	font-style: italic;
+	margin: 16px 0;
+	padding: 10px 20px;
+}
+
+.RichEditor-editor .public-DraftStyleDefault-pre {
+	background-color: rgba(0, 0, 0, 0.05);
+	font-family: "Inconsolata", "Menlo", "Consolas", monospace;
+	font-size: 16px;
+	padding: 20px;
+}
+
+.RichEditor-controls {
+	font-family: "Helvetica", sans-serif;
+	font-size: 14px;
+	margin-bottom: 5px;
+	user-select: none;
+}
+
+.RichEditor-styleButton {
+	color: #999;
+	cursor: pointer;
+	margin-right: 16px;
+	padding: 2px 0;
+	display: inline-block;
+}
+
+.RichEditor-activeButton {
+	color: #5890ff;
+}
+/// end text editor

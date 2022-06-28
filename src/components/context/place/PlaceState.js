@@ -153,9 +153,10 @@ const PlaceState = (props) => {
 	//end upload tips
 
 	//like dislike item
-	const likeDislike = async (id, type) => {
-		const itemRef = doc(db, "establishment", id);
+	const likeDislike = async (id, type, collection) => {
+		const itemRef = doc(db, collection, id);
 		const userRef = doc(db, "users", state.user.uid);
+
 		const docSnap = await getDoc(userRef);
 		let user = {};
 		let data = {};
@@ -221,6 +222,7 @@ const PlaceState = (props) => {
 					est_visit: [],
 					comments: [],
 					tips: [],
+					parent_id: state.user.uid,
 				};
 				let req = await setDoc(docRef, { ...place });
 			} else {
@@ -234,6 +236,7 @@ const PlaceState = (props) => {
 					est_visit: [],
 					comments: [],
 					tips: [],
+					parent_id: state.user.uid,
 				};
 				let req = await setDoc(docRef, { ...place });
 			}
@@ -270,6 +273,31 @@ const PlaceState = (props) => {
 	//delete comment
 
 	//end delete comment
+
+	//add blog comment
+	const addBlogComment = async (blog, comment, setComment) => {
+		const docRef = doc(db, "blogs", blog.blog_id);
+
+		let commentRef = {
+			text: comment,
+			parent_name: state.user.displayName,
+			parent_id: state.user.uid,
+			id: uuidv4(),
+			timeStamp: Date.now(),
+		};
+		let dta = {
+			...blog,
+			comments: [...blog.comments, commentRef],
+		};
+		let req = await setDoc(docRef, { ...dta });
+		setComment("");
+		setAlert("Comment Added");
+		setTimeout(() => {
+			removeAlert();
+		}, 4000);
+	};
+
+	//end add blog comment
 
 	//user
 	//sign up
@@ -371,6 +399,7 @@ const PlaceState = (props) => {
 		likeDislike,
 		setLive,
 		uploadTips,
+		addBlogComment,
 	};
 	return (
 		<PlaceContext.Provider value={value}>

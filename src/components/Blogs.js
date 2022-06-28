@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Blog2 from "../images/blog2.jpg";
 import Blog3 from "../images/blog3.jpg";
 import Curv3 from "../images/curv3.png";
 import Curv4 from "../images/curv4.png";
 import BlogCard from "./BlogCard";
+import { collection, doc, setDoc, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Blogs = () => {
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+	const [blogs, setBlogs] = useState([]);
 
 	window.addEventListener("resize", () => {
 		setScreenWidth(window.innerWidth);
 	});
+
+	useEffect(() => {
+		const getData = async () => {
+			let blogArry = [];
+			const querySnapshot = await getDocs(collection(db, "blogs"));
+			querySnapshot.forEach((doc) => {
+				// doc.data() is never undefined for query doc snapshots
+				blogArry.push(doc.data());
+			});
+			setBlogs(blogArry);
+		};
+		getData();
+	}, []);
+	console.log(blogs);
 	return (
 		<div className='blog-landing'>
 			<div className='blog-top-sec'>
@@ -40,10 +57,9 @@ const Blogs = () => {
 			<div className='blog-popular-sec'>
 				<h2 className='sec-heading'>Popular Blogs</h2>
 				<div className='popular-sec-blogs'>
-					{" "}
-					<BlogCard />
-					<BlogCard />
-					<BlogCard />
+					{blogs.map((blog, index) => (
+						<BlogCard blog={blog} key={index} />
+					))}
 				</div>
 			</div>
 		</div>
