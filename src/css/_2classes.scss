@@ -630,7 +630,7 @@
 	border-radius: 20px;
 	border-radius: 20px;
 
-	box-shadow: 13px 13px 26px #d1d1d1, -13px -13px 26px #ffffff;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.156);
 	width: calc(95% - 2rem);
 	padding: 1.5rem 1rem;
 	margin: 0.5rem auto;
@@ -673,6 +673,8 @@
 	.blog-card-body {
 		margin-top: -10px;
 		margin-left: 60px;
+		height: 110px;
+		overflow: hidden;
 
 		h2 {
 			margin: 0;

@@ -23,7 +23,6 @@ const Header = () => {
 		setWidth(window.innerWidth);
 	});
 
-	console.log(width);
 	const handleLogout = () => {
 		signOut(auth)
 			.then(() => {})

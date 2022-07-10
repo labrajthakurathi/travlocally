@@ -303,50 +303,63 @@ const PlaceState = (props) => {
 	//sign up
 	const signUp = async (data, setData, navigate) => {
 		setLoading();
-		const auth = getAuth();
 
-		try {
-			let req = await createUserWithEmailAndPassword(
-				auth,
-				data.email,
-				data.password
-			);
+		const citiesRef = collection(db, "banned_users");
+		const q = query(citiesRef, where("email", "==", data.email));
+
+		const querySnapshot = await getDocs(q);
+		if (querySnapshot.empty) {
+			const auth = getAuth();
 
 			try {
-				let reqEmail = await sendEmailVerification(auth.currentUser);
+				let req = await createUserWithEmailAndPassword(
+					auth,
+					data.email,
+					data.password
+				);
 
-				const user = {
-					email: req.user.email,
-					uid: req.user.uid,
-					first_name: data.first_name,
-					last_name: data.last_name,
-					liked: [],
-					disliked: [],
-				};
-				let updateReq = await updateProfile(auth.currentUser, {
-					displayName: `${data.first_name} ${data.last_name}`,
-				});
-				const docRef = doc(db, "users", req.user.uid);
-				const userReq = await setDoc(docRef, { ...user });
+				try {
+					let reqEmail = await sendEmailVerification(auth.currentUser);
+
+					const user = {
+						email: req.user.email,
+						uid: req.user.uid,
+						first_name: data.first_name,
+						last_name: data.last_name,
+						liked: [],
+						disliked: [],
+					};
+					let updateReq = await updateProfile(auth.currentUser, {
+						displayName: `${data.first_name} ${data.last_name}`,
+					});
+					const docRef = doc(db, "users", req.user.uid);
+					const userReq = await setDoc(docRef, { ...user });
+				} catch (err) {
+					setAlert("Something Went Wrong");
+					setTimeout(() => {
+						removeAlert();
+					}, 8000);
+				}
+
+				navigate("/me", { replace: true });
 			} catch (err) {
-				setAlert("Something Went Wrong");
+				let message = "";
+				err.code == "auth/email-already-in-use"
+					? (message = "Email Already Exists")
+					: (message = "Something Went Wrong");
+
+				setAlert(message);
 				setTimeout(() => {
 					removeAlert();
 				}, 8000);
 			}
-
-			navigate("/me", { replace: true });
-		} catch (err) {
-			let message = "";
-			err.code == "auth/email-already-in-use"
-				? (message = "Email Already Exists")
-				: (message = "Something Went Wrong");
-
-			setAlert(message);
+		} else {
+			setAlert("Prohibited Credentials");
 			setTimeout(() => {
 				removeAlert();
 			}, 8000);
 		}
+
 		removeLoading();
 	};
 

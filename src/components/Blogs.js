@@ -6,6 +6,7 @@ import Curv4 from "../images/curv4.png";
 import BlogCard from "./BlogCard";
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { Link } from "react-router-dom";
 
 const Blogs = () => {
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -61,6 +62,9 @@ const Blogs = () => {
 						<BlogCard blog={blog} key={index} />
 					))}
 				</div>
+				<Link to='/blog/write' className='btn-dark'>
+					Write Blog
+				</Link>
 			</div>
 		</div>
 	);

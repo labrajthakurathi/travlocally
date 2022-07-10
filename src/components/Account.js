@@ -11,19 +11,16 @@ const Account = () => {
 
 	const [verify, setVerify] = useState(null);
 	useEffect(() => {
-		const unsub = console.log("subbed");
-
 		const auth = getAuth();
 		onAuthStateChanged(auth, (user) => {
 			if (user) {
 				const uid = user.uid;
-				console.log(user.emailVerified);
+
 				setVerify(user.emailVerified);
 			} else {
 				setAlert("Something Went Wrong");
 			}
 		});
-		return () => console.log("unsubbed");
 	}, []);
 	return (
 		<div>

@@ -157,7 +157,7 @@ class Paragraph extends React.Component {
 
 		return (
 			<div className='RichEditor-root-wrapper'>
-				<label htmlFor=''>Paragraph</label>
+				<label htmlFor=''>Text</label>
 				<div className='RichEditor-root'>
 					<BlockStyleControls
 						editorState={editorState}

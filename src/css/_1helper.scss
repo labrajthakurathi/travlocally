@@ -119,7 +119,7 @@ $desk-height: 100vh;
 			height: 40px !important;
 			width: 40px !important;
 			border-radius: 25px;
-			background-color: $primary;
+			background-color: black;
 
 			width: 50px;
 			@include flex;
@@ -225,7 +225,7 @@ $desk-height: 100vh;
 			max-width: 600px;
 			a {
 				font-size: 1.1rem;
-				color: $primary;
+				color: black;
 				font-weight: bolder;
 				text-decoration: none;
 				text-shadow: 1px 1px 1px black;
@@ -250,7 +250,7 @@ $desk-height: 100vh;
 
 				height: 4px;
 				width: 40px;
-				background-color: $primary;
+				background-color: black;
 				margin: 3px;
 				border-radius: 3px;
 				display: flex;
@@ -272,7 +272,7 @@ $desk-height: 100vh;
 			span {
 				height: 4px;
 				width: 40px;
-				background-color: $primary;
+
 				margin: 3px;
 				border-radius: 3px;
 				display: flex;
