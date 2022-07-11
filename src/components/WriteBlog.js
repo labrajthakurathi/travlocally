@@ -120,7 +120,7 @@ const WriteBlog = () => {
 					</div>
 				</div>
 			</div>
-			<div className='title'>
+			<div className='title tag-title'>
 				{tag === "" ? (
 					<button
 						className='btn-secondary'
@@ -134,9 +134,9 @@ const WriteBlog = () => {
 					</div>
 				)}
 			</div>
-
+			{/* {progressBar >= 33 && ( */}
 			<div className='title'>
-				<label htmlFor='title'>Title</label>
+				<label htmlFor='title'>Blog Title</label>
 				<textarea
 					type='text'
 					rows='2'
@@ -145,6 +145,8 @@ const WriteBlog = () => {
 					onChange={handleTitleChange}
 				/>
 			</div>
+			{/* )} */}
+
 			{blogUi &&
 				blogUi.map((b, index) => {
 					if (b.type == 1) {
@@ -167,27 +169,24 @@ const WriteBlog = () => {
 						);
 					}
 				})}
-			<hr />
-			<div className='tool-selection'>
-				<i
-					className='fas fa-paragraph'
-					data-name='Add Text'
-					onClick={() => handleBlog("1")}
-				></i>
 
-				<i
-					className='fas fa-image'
-					data-name='Add Image'
-					onClick={() => handleBlog("2")}
-				></i>
-			</div>
-			<div className='clear'>
-				<button className='btn-primary' onClick={handleClear}>
-					Clear<i className='fas fa-times ml-1'></i>
-				</button>
-				<Link to='/blog/preview' className='btn-secondary'>
-					Preview<i className='fas fa-eye ml-1'></i>
-				</Link>
+			<div className='tools-buttons'>
+				<div className='tool-selection'>
+					<button onClick={() => handleBlog("1")}>
+						<i className='fas fa-paragraph' data-name='Add Text'></i>
+					</button>
+					<button onClick={() => handleBlog("2")}>
+						<i className='fas fa-image' data-name='Add Image'></i>
+					</button>
+				</div>
+				<div className='clear'>
+					<button className='btn-primary' onClick={handleClear}>
+						Clear<i className='fas fa-times ml-1'></i>
+					</button>
+					<Link to='/blog/preview' className='btn-secondary-dark'>
+						Preview<i className='fas fa-eye ml-1'></i>
+					</Link>
+				</div>
 			</div>
 		</div>
 	);

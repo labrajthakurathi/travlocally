@@ -39,7 +39,11 @@ const Preview = ({ setShow }) => {
 			const cityRef = doc(db, "blogs", id);
 			setDoc(
 				cityRef,
-				{ blog_text: [...blogLocal], title: localStorage.getItem("title") },
+				{
+					blog_text: [...blogLocal],
+					title: localStorage.getItem("title"),
+					tag: JSON.parse(localStorage.getItem("tag")),
+				},
 				{ merge: true }
 			);
 		} else {
@@ -54,6 +58,7 @@ const Preview = ({ setShow }) => {
 				like: 1,
 				dislike: 0,
 				comments: [],
+				tag: JSON.parse(localStorage.getItem("tag")),
 			};
 
 			await setDoc(doc(db, "blogs", item_id), { ...fullData });

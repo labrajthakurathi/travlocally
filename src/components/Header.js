@@ -79,6 +79,9 @@ const Header = () => {
 							<Link to='/' onClick={() => setOpen(false)}>
 								Home
 							</Link>
+							<Link to='/blogs' onClick={() => setOpen(false)}>
+								Blogs
+							</Link>
 
 							<Link to='/add-places' onClick={() => setOpen(false)}>
 								Contribute

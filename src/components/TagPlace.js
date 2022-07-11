@@ -66,9 +66,9 @@ const TagPlace = ({ setShowTagSearch, setTag, setProgressBar }) => {
 
 				setTag(city);
 				setShowTagSearch(false);
-				setProgressBar(33);
+				setProgressBar(100 / 3);
 				localStorage.setItem("tag", JSON.stringify(city));
-				localStorage.setItem("progress", JSON.stringify(30));
+				localStorage.setItem("progress", JSON.stringify(100 / 3));
 			}
 		}
 	};

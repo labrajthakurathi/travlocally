@@ -12,6 +12,10 @@ import { db, onSnapshot, storage } from "../firebase";
 import Card2 from "./Card2";
 import Card3 from "./Card3";
 import Admin from "./Admin";
+import UserCurv from "../images/user-cuvr.png";
+import TopPlaces from "./TopPlaces";
+import NearbyPlaces from "./NearbyPlaces";
+import { Link } from "react-router-dom";
 
 const User = () => {
 	const PlaceContext = useContext(placeContext);
@@ -54,10 +58,11 @@ const User = () => {
 			) : (
 				<div className='content'>
 					<div className='top'>
-						<img
+						{/* <img
 							src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Fuser-curv.png?alt=media&token=c3dc7aa2-98d8-4e0a-acdf-00379c88ed4e'
 							alt='TravLocally asset'
-						/>
+						/> */}
+						<img src={UserCurv} alt='TravLocally asset' />
 
 						<div className='search-bar'>
 							<h1 className='heading'>EXPLORE</h1>
@@ -68,17 +73,34 @@ const User = () => {
 						</div>
 					</div>
 					<div className='bottom-sec'>
-						<div className='section section-1'>
+						<div className='nearby-places-section'>
 							<h2>Your Contribution</h2>
-							<div className='top-places-cards'>
-								{placeAry &&
+							<div className='nearby-places-cards'>
+								{placeAry.length ? (
 									placeAry.map((place, index) => (
 										<Card3 key={index} place={place} />
-									))}
+									))
+								) : (
+									<div className='no-content'>
+										<p>So Empty</p>
+										<i className='fas fa-folder-open'></i>
+									</div>
+								)}
 							</div>
 						</div>
 						<div className='section section-2'>
-							<h2>Saved Places</h2>
+							<NearbyPlaces />
+						</div>
+						<div className='section section-3'>
+							<h2>Contribute</h2>
+							<div className='section-3-btn'>
+								<Link to='/add-places' className='btn-primary'>
+									Add Places
+								</Link>
+								<Link to='/blog/write' className='btn-secondary'>
+									Write Blogs
+								</Link>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -37,6 +37,9 @@ const BlogCard = ({ blog }) => {
 					<div className='icon'>
 						<p>{blog.read_time} mins read</p>
 					</div>
+					<div className='tag'>
+						<p>{blog.tag.desc}</p>
+					</div>
 				</div>
 			</div>
 		</div>
