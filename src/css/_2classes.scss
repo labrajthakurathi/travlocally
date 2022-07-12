@@ -335,6 +335,24 @@
 			@include flex;
 		}
 	}
+	.assign {
+		.content-body {
+			h3 {
+				margin: 0;
+				padding: 0;
+			}
+			p {
+				margin-top: 0;
+			}
+		}
+
+		.category-list {
+			button {
+				width: 100%;
+				margin: 0.25rem;
+			}
+		}
+	}
 }
 .confirm-modal {
 	.content {

@@ -737,6 +737,20 @@
   align-items: center;
   flex-direction: column;
 }
+.message .assign .content-body h3,
+.confirm-modal .assign .content-body h3 {
+  margin: 0;
+  padding: 0;
+}
+.message .assign .content-body p,
+.confirm-modal .assign .content-body p {
+  margin-top: 0;
+}
+.message .assign .category-list button,
+.confirm-modal .assign .category-list button {
+  width: 100%;
+  margin: 0.25rem;
+}
 
 .confirm-modal .content {
   z-index: 9 !important;
@@ -4480,4 +4494,98 @@ body {
 .admin .show {
   height: auto;
   width: auto;
+}
+
+.ais-SearchBox {
+  margin: auto;
+  width: 320px;
+  position: relative;
+  margin-top: 50px !important;
+  max-width: 450px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+@media (min-width: 580px) {
+  .ais-SearchBox {
+    width: 420px;
+  }
+}
+@media (min-width: 1040px) {
+  .ais-SearchBox {
+    width: 450px;
+  }
+}
+.ais-SearchBox input {
+  padding: 1.3rem 2rem;
+  background-color: #333333;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 1rem;
+  color: white;
+  -webkit-appearance: none;
+  box-shadow: 3px 5px 8px rgba(62, 62, 62, 0.591);
+}
+.ais-SearchBox input::-moz-placeholder {
+  color: white;
+  opacity: 0.7;
+  text-align: center;
+}
+.ais-SearchBox input:-ms-input-placeholder {
+  color: white;
+  opacity: 0.7;
+  text-align: center;
+}
+.ais-SearchBox input::placeholder {
+  color: white;
+  opacity: 0.7;
+  text-align: center;
+}
+.ais-SearchBox .input-icon {
+  font-size: 1.5rem;
+  position: absolute;
+  color: white;
+  top: 30%;
+  right: 35px;
+  z-index: 1;
+  transition: all 100ms ease-in-out;
+}
+.ais-SearchBox .input-icon:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.ais-SearchBox-submit {
+  position: absolute;
+  right: 1rem;
+  top: calc(50% - 0.5rem);
+  background-color: transparent;
+  border: none;
+}
+
+.ais-SearchBox-submitIcon {
+  height: 1rem;
+  width: 1rem;
+  color: rgb(255, 255, 255) !important;
+}
+
+.ais-Hits {
+  width: 500px;
+  margin: auto;
+}
+
+.ais-Hits-list {
+  list-style: none;
+  margin-left: -32px;
+}
+
+.ais-Hits-list li {
+  width: 100%;
+  margin: 0.5rem auto;
+  background-color: rgb(38, 38, 38);
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  border-radius: 3px;
 }/*# sourceMappingURL=index.css.map */

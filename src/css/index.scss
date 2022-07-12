@@ -2880,3 +2880,84 @@ body {
 	}
 }
 //ed admin
+.ais-SearchBox {
+	margin: auto;
+
+	width: 320px;
+
+	position: relative;
+	margin-top: 50px !important;
+	max-width: 450px;
+	height: fit-content;
+	@include tab {
+		width: 420px;
+	}
+	@include desk {
+		width: 450px;
+	}
+
+	input {
+		padding: 1.3rem 2rem;
+		background-color: #333333;
+		border: none;
+		border-radius: 5px;
+		width: 100%;
+		font-size: 1rem;
+		color: white;
+		-webkit-appearance: none;
+		box-shadow: 3px 5px 8px rgba(62, 62, 62, 0.591);
+		&::placeholder {
+			color: white;
+			opacity: 0.7;
+			text-align: center;
+		}
+	}
+	.input-icon {
+		font-size: 1.5rem;
+		position: absolute;
+		color: white;
+		top: 30%;
+		right: 35px;
+		z-index: 1;
+		transition: all 100ms ease-in-out;
+
+		&:hover {
+			cursor: pointer;
+			transform: scale(1.2);
+		}
+	}
+}
+.ais-SearchBox-submit {
+	position: absolute;
+	right: 1rem;
+	top: calc(50% - 0.5rem);
+	background-color: transparent;
+	border: none;
+}
+.ais-SearchBox-submitIcon {
+	height: 1rem;
+	width: 1rem;
+	color: rgb(255, 255, 255) !important;
+}
+
+.ais-Hits {
+	width: 500px;
+	margin: auto;
+}
+.ais-Hits-list {
+	list-style: none;
+	margin-left: -32px;
+}
+.ais-Hits-list li {
+	width: 100%;
+	margin: 0.5rem auto;
+	background-color: rgb(38, 38, 38);
+	padding: 1rem;
+	text-align: center;
+	color: white;
+	border-radius: 3px;
+}
+.hits {
+	// background-color: red;
+	// list-style: none;
+}

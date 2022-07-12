@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import ContributeSec from "./ContributeSec";
 import Landing from "./Landing";
-import NearbyPlaces from "./NearbyPlaces";
-import TopPlaces from "./TopPlaces";
+import MostViewedPlaces from "./MostViewedPlaces";
+import PopularPlaces from "./PopularPlaces";
+import TravLocallyFavPlaces from "./TravLocallyFavPlaces";
 
 const Home = () => {
-	const [load, setLoad] = useState(true);
-
 	return (
 		<div>
 			<Landing />
-			<TopPlaces />
-			<NearbyPlaces />
+			<PopularPlaces />
+			<MostViewedPlaces />
+
+			<TravLocallyFavPlaces />
 			<ContributeSec />
 		</div>
 	);

@@ -1,14 +1,11 @@
 import React from "react";
 
-const Card2 = () => {
+const Card2 = ({ place }) => {
 	return (
 		<div className='card-2'>
-			<img
-				src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Fparis.jpg?alt=media&token=73b024e3-9541-4749-a9ff-039ef27d77a2'
-				alt=''
-			/>
+			<img src={place.picture} alt={`TravLocally ${place.desc}`} />
 			<div className='text'>
-				<h4>Paris, France</h4>
+				<h4>{place.desc}</h4>
 			</div>
 		</div>
 	);

@@ -5,32 +5,43 @@ import {
 	collection,
 	getDocs,
 	setDoc,
-	query,
-	where,
-	limit,
+	getDoc,
 } from "firebase/firestore";
-
 import { useNavigate } from "react-router-dom";
-import { getAuth, deleteUser } from "firebase/auth";
-import { db, onSnapshot, storage } from "../firebase";
+import { db, onSnapshot } from "../firebase";
 import Loading from "./Loading";
+import algoliasearch from "algoliasearch/lite";
+import {
+	InstantSearch,
+	SearchBox,
+	Hits,
+	Highlight,
+} from "react-instantsearch-dom";
+import Hit from "./Hit";
+import AssingModal from "./AssingModal";
 
 const Admin = () => {
 	const [type, setType] = useState("blogs");
-	const [catType, setCatType] = useState("");
+	const [catType, setCatType] = useState("popular");
 	const [data, setData] = useState([]);
 	const [searched, setSearched] = useState([]);
 	const [showItem, setShowItem] = useState(false);
 	const [showCategory, setShowCategory] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+	const [currentItem, setCurrentItem] = useState("");
+	const [places, setPlaces] = useState([]);
 	let show = searched.length ? searched : data;
+	const searchClient = algoliasearch(
+		"ZHTV4FUZ03",
+		"bb5d13be06f5cb1c14b85b65f0c343c5"
+	);
 	const navigate = useNavigate();
 	useEffect(() => {
 		getData();
 		setSearched([]);
 	}, [type]);
 	useEffect(() => {
-		getCatData();
-		// setSearched([]);
+		getPlaces();
 	}, [catType]);
 
 	const getData = async () => {
@@ -39,16 +50,26 @@ const Admin = () => {
 		querySnapshot.forEach((doc) => {
 			dataArry.push(doc.data());
 		});
-		setData([...dataArry]);
+
+		if (type === "places") {
+			setData(
+				dataArry.filter(
+					(item) =>
+						item.type !== "popular" &&
+						item.type !== "most_viewed" &&
+						item.type !== "travlocally_favorite"
+				)
+			);
+		} else {
+			setData([...dataArry]);
+		}
 	};
-	const getCatData = async () => {
-		// const querySnapshot = await getDocs(collection(db, type));
-		// let dataArry = [];
-		// querySnapshot.forEach((doc) => {
-		// 	dataArry.push(doc.data());
-		// });
-		// setData([...dataArry]);
+	const getPlaces = async () => {
+		const unsub = await onSnapshot(doc(db, "places", catType), (doc) => {
+			setPlaces(doc.data().items);
+		});
 	};
+
 	const handleDelete = async (id, item) => {
 		await deleteDoc(doc(db, type, id));
 		if (type === "blogs") {
@@ -62,6 +83,23 @@ const Admin = () => {
 
 			setData(data.filter((item) => item.uid != id));
 		}
+	};
+
+	const handlePlaceDelete = async (item) => {
+		let data = {};
+		const docRef = doc(db, "places", catType);
+		const docSnap = await getDoc(docRef);
+		if (docSnap.exists()) {
+			data = docSnap.data();
+		} else {
+			console.log("No such document!");
+		}
+		let removed = data.items.filter(
+			(place) => place.place_id !== item.place_id
+		);
+
+		let finalData = { ...data, items: [...removed] };
+		let upload = await setDoc(docRef, { ...finalData });
 	};
 	const handleSearch = (e) => {
 		let matches = data.filter((item) => {
@@ -79,8 +117,6 @@ const Admin = () => {
 	};
 	const handleEdit = (item) => {
 		let content = JSON.stringify(item.blog_text);
-		// let tag = JSON.stringify(item.tag);
-
 		localStorage.clear();
 		localStorage.setItem("title", item.title);
 		localStorage.setItem("blog-id", item.item_id);
@@ -95,35 +131,18 @@ const Admin = () => {
 		});
 
 		navigate("/blog/write");
-		// console.log(item.blog_text);
 	};
-	const handlePlaceSearch = async (e) => {
-		// console.log(e.target.value);
-		const placeRef = collection(db, "places");
-		// const q = query(
-		// 	placeRef,
-		// 	where("desc", ">=", e.target.value),
-		// 	where("desc", "<=", e.target.value + "\uf8ff"),
-		// 	limit(3)
-		// );
-		const q = query(
-			placeRef,
-			where("desc", ">=", e.target.value),
-			where("desc", "<=", e.target.value + "\uf8ff"),
 
-			limit(3)
-		);
-
-		const querySnapshot = await getDocs(q);
-		let arry = [];
-		// console.log(querySnapshot);
-		querySnapshot.forEach((doc) => {
-			console.log(doc.data().desc);
-		});
-	};
 	return (
 		<div className='admin'>
 			{!data.length && <Loading />}
+			{showModal && (
+				<AssingModal
+					currentItem={currentItem}
+					setCurrentItem={setCurrentItem}
+					setShowModal={setShowModal}
+				/>
+			)}
 			<div className='place-header'>
 				<ul>
 					<li
@@ -146,7 +165,9 @@ const Admin = () => {
 						Users
 					</li>
 					<div className='hide' onClick={() => setShowItem(!showItem)}>
-						<i className={showItem ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+						<i
+							className={showItem ? "fas fa-angle-up" : "fas fa-angle-down"}
+						></i>
 					</div>
 				</ul>
 			</div>
@@ -158,7 +179,7 @@ const Admin = () => {
 							<input
 								type='text'
 								id='blog-search'
-								placeholder='Enter the city'
+								placeholder='Type...'
 								onChange={handleSearch}
 							/>
 							<i className='fas fa-search-location'></i>
@@ -196,6 +217,13 @@ const Admin = () => {
 													className='fas fa-trash'
 													onClick={() => handleDelete(item.place_id)}
 												></i>
+												<i
+													className='fas fa-plus'
+													onClick={() => {
+														setShowModal(true);
+														setCurrentItem(item);
+													}}
+												></i>
 											</div>
 										</div>
 									);
@@ -227,98 +255,54 @@ const Admin = () => {
 				<ul>
 					<li
 						onClick={() => setCatType("popular")}
-						className={type == "popular" ? "active-category" : ""}
+						className={catType == "popular" ? "active-category" : ""}
 					>
 						Popular
 					</li>
 					<li
 						onClick={() => setCatType("most_viewed")}
-						className={type == "most_viewed" ? "active-category" : ""}
+						className={catType == "most_viewed" ? "active-category" : ""}
 					>
 						Most Viewed
 					</li>
 
 					<li
 						onClick={() => setCatType("travlocally_favorite")}
-						className={type == "travlocally_favorite" ? "active-category" : ""}
+						className={
+							catType == "travlocally_favorite" ? "active-category" : ""
+						}
 					>
 						TravLocally Favorite
 					</li>
 					<div className='hide' onClick={() => setShowCategory(!showCategory)}>
-						<i className={showCategory ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+						<i
+							className={showCategory ? "fas fa-angle-up" : "fas fa-angle-down"}
+						></i>
 					</div>
 				</ul>
 			</div>
 
 			<div className='items-sec'>
-				<div className='search-bar'>
-					<p>Search for places to add</p>
-					<div className='bar'>
-						<input
-							type='text'
-							id='blog-search'
-							placeholder='Enter the city'
-							onChange={handlePlaceSearch}
-						/>
-						<i className='fas fa-search-location'></i>
-					</div>
-				</div>
 				{showCategory && (
 					<div className='data-list'>
-						{data.length &&
-							show.map((item, index) => {
-								if (type === "blogs") {
-									return (
-										<div className='admin-card' key={index}>
-											<p>{item.title}</p>{" "}
-											<div className='action'>
-												<i
-													className='fas fa-pen'
-													onClick={() => handleEdit(item)}
-												></i>
-												<i
-													className='fas fa-trash'
-													onClick={() => handleDelete(item.item_id)}
-												></i>
-											</div>
-										</div>
-									);
-								} else if (type === "places") {
-									return (
-										<div className='admin-card' key={index}>
-											<p>{item.desc}</p>{" "}
-											<div className='action'>
-												<i
-													className='fas fa-pen'
-													onClick={() => handleEdit(item.place_id)}
-												></i>
-												<i
-													className='fas fa-trash'
-													onClick={() => handleDelete(item.place_id)}
-												></i>
-											</div>
-										</div>
-									);
-								} else {
-									return (
-										<div className='admin-card' key={index}>
-											<div className='name-email'>
-												<p>
-													{item.first_name} {item.last_name}
-												</p>{" "}
-												<p>{item.email}</p>
-											</div>
+						{/* <InstantSearch searchClient={searchClient} indexName='places'>
+					<SearchBox />
 
-											<div className='action'>
-												<i
-													className='fas fa-ban'
-													onClick={() => handleDelete(item.uid, item)}
-												></i>
-											</div>
-										</div>
-									);
-								}
-							})}
+					<Hits hitComponent={Hit} />
+				</InstantSearch> */}
+
+						{places.length &&
+							places.map((item, index) => (
+								<div className='admin-card' key={index}>
+									<p>{item.desc}</p>{" "}
+									<div className='action'>
+										<i
+											className='fas fa-trash'
+											onClick={() => handlePlaceDelete(item)}
+										></i>
+									</div>
+								</div>
+							))}
 					</div>
 				)}
 			</div>

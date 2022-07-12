@@ -8,14 +8,12 @@ import {
 	doc,
 	getDoc,
 } from "firebase/firestore";
-import { db, onSnapshot, storage } from "../firebase";
-import Card2 from "./Card2";
+import { db } from "../firebase";
 import Card3 from "./Card3";
 import Admin from "./Admin";
 import UserCurv from "../images/user-cuvr.png";
-import TopPlaces from "./TopPlaces";
-import NearbyPlaces from "./NearbyPlaces";
 import { Link } from "react-router-dom";
+import MostViewedPlaces from "./MostViewedPlaces";
 
 const User = () => {
 	const PlaceContext = useContext(placeContext);
@@ -58,10 +56,6 @@ const User = () => {
 			) : (
 				<div className='content'>
 					<div className='top'>
-						{/* <img
-							src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Fuser-curv.png?alt=media&token=c3dc7aa2-98d8-4e0a-acdf-00379c88ed4e'
-							alt='TravLocally asset'
-						/> */}
 						<img src={UserCurv} alt='TravLocally asset' />
 
 						<div className='search-bar'>
@@ -89,7 +83,7 @@ const User = () => {
 							</div>
 						</div>
 						<div className='section section-2'>
-							<NearbyPlaces />
+							<MostViewedPlaces />
 						</div>
 						<div className='section section-3'>
 							<h2>Contribute</h2>
