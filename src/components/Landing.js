@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Loading from "./Loading";
 import Bg from "../images/travel.jpg";
+import Search from "./Search";
 
 const Landing = () => {
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -35,9 +36,22 @@ const Landing = () => {
 					<div className='home-search-bar'>
 						<h2>Where You Wanna Go ?</h2>
 						<div className='bar'>
-							<input type='text' placeholder='Enter Destination' />
+							{/* <input type='text' placeholder='Enter Destination' />
 
-							<i className='fas fa-search-location'></i>
+							<i className='fas fa-search-location'></i> */}
+							{/* <InstantSearch searchClient={searchClient} indexName='places'>
+								<SearchBox
+									onFocus={() => {
+										setShowIcon(false);
+									}}
+									onBlur={() => {
+										setShowIcon(true);
+									}}
+								/>
+
+								<Hits hitComponent={Hit} />
+							</InstantSearch> */}
+							<Search />
 						</div>
 					</div>
 				</div>

@@ -1,8 +1,8 @@
 import React from "react";
 
-const PicLoading = () => {
+const PicLoading = ({ style }) => {
 	return (
-		<div className='pic-loading'>
+		<div className={style ? "pic-loading category" : "pic-loading "}>
 			<div className='pic-spinner'></div>
 		</div>
 	);

@@ -8,7 +8,7 @@ const AssingModal = ({ currentItem, setCurrentItem, setShowModal }) => {
 	const handleAssign = async (cat) => {
 		setLoading(true);
 		let data = {};
-		const docRef = doc(db, "places", cat);
+		const docRef = doc(db, "category", cat);
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
 			data = docSnap.data();

@@ -5,7 +5,9 @@ const Card2 = ({ place }) => {
 		<div className='card-2'>
 			<img src={place.picture} alt={`TravLocally ${place.desc}`} />
 			<div className='text'>
-				<h4>{place.desc}</h4>
+				<h4 className={place.desc.length > 24 ? "big-text" : ""}>
+					{place.desc}
+				</h4>
 			</div>
 		</div>
 	);

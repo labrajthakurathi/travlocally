@@ -122,7 +122,7 @@
 
 //cards
 .card-1 {
-	margin: 0.4rem;
+	margin: 0px 0.4rem !important;
 	&:hover {
 		cursor: pointer;
 	}
@@ -148,6 +148,11 @@
 			width: 170px;
 			font-size: 1.1rem;
 		}
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	.big-text {
+		font-size: 0.9rem;
 	}
 }
 
@@ -198,6 +203,9 @@
 				width: 150px;
 				height: 60px;
 			}
+		}
+		.big-text {
+			font-size: 0.9rem;
 		}
 	}
 }
@@ -772,6 +780,7 @@
 	width: 200px;
 	background-color: rgb(229, 229, 229);
 	border-radius: 10px;
+	z-index: 9;
 	@include flex;
 	.pic-spinner {
 		height: 50px;
@@ -788,6 +797,20 @@
 		100% {
 			transform: rotate(360deg);
 		}
+	}
+}
+.category {
+	width: 140px;
+	height: 170px;
+	margin-left: 1.5rem;
+	margin-bottom: 1rem;
+	@include tab {
+		margin-left: 3.5rem;
+	}
+	@include tab {
+		margin-left: 4.5rem;
+		width: 170px;
+		height: 220px;
 	}
 }
 //pic loader end

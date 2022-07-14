@@ -10,14 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { db, onSnapshot } from "../firebase";
 import Loading from "./Loading";
-import algoliasearch from "algoliasearch/lite";
-import {
-	InstantSearch,
-	SearchBox,
-	Hits,
-	Highlight,
-} from "react-instantsearch-dom";
-import Hit from "./Hit";
+
 import AssingModal from "./AssingModal";
 
 const Admin = () => {
@@ -31,15 +24,13 @@ const Admin = () => {
 	const [currentItem, setCurrentItem] = useState("");
 	const [places, setPlaces] = useState([]);
 	let show = searched.length ? searched : data;
-	const searchClient = algoliasearch(
-		"ZHTV4FUZ03",
-		"bb5d13be06f5cb1c14b85b65f0c343c5"
-	);
+
 	const navigate = useNavigate();
 	useEffect(() => {
 		getData();
 		setSearched([]);
 	}, [type]);
+
 	useEffect(() => {
 		getPlaces();
 	}, [catType]);
@@ -65,7 +56,7 @@ const Admin = () => {
 		}
 	};
 	const getPlaces = async () => {
-		const unsub = await onSnapshot(doc(db, "places", catType), (doc) => {
+		const unsub = await onSnapshot(doc(db, "category", catType), (doc) => {
 			setPlaces(doc.data().items);
 		});
 	};
@@ -87,7 +78,7 @@ const Admin = () => {
 
 	const handlePlaceDelete = async (item) => {
 		let data = {};
-		const docRef = doc(db, "places", catType);
+		const docRef = doc(db, "category", catType);
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
 			data = docSnap.data();
@@ -285,12 +276,6 @@ const Admin = () => {
 			<div className='items-sec'>
 				{showCategory && (
 					<div className='data-list'>
-						{/* <InstantSearch searchClient={searchClient} indexName='places'>
-					<SearchBox />
-
-					<Hits hitComponent={Hit} />
-				</InstantSearch> */}
-
 						{places.length &&
 							places.map((item, index) => (
 								<div className='admin-card' key={index}>

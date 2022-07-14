@@ -10,7 +10,8 @@ body {
 	background-color: $light;
 }
 .landing-page {
-	overflow: hidden;
+	// overflow: hidden;
+
 	.landing-section-1 {
 		position: relative;
 
@@ -117,44 +118,128 @@ body {
 				}
 				.bar {
 					position: relative;
-					input {
-						padding: 1.1rem 2rem;
-						background-color: white;
-						border: none;
-						border-radius: 30px;
-						width: calc(100% - 4rem);
-						font-size: 1rem;
-						color: rgb(0, 0, 0);
-						-webkit-appearance: none;
-						box-shadow: 3px 5px 8px rgba(62, 62, 62, 0.591);
-						@include desk {
-							background-color: $secondary;
-							color: white;
-						}
-						&::placeholder {
-							color: rgb(74, 74, 74);
+					.ais-SearchBox {
+						width: 100% !important;
 
-							text-align: center;
+						input {
+							padding: 1.1rem 2rem;
+							background-color: white;
+							border: none;
+							border-radius: 30px;
+							width: 100%;
+							font-size: 1rem;
+							color: rgb(0, 0, 0);
+							-webkit-appearance: none;
+							box-shadow: 3px 5px 8px rgba(62, 62, 62, 0.591);
 							@include desk {
+								background-color: $secondary;
 								color: white;
+							}
+							&::placeholder {
+								color: rgb(74, 74, 74);
+
+								text-align: center;
+								@include desk {
+									color: white;
+								}
 							}
 						}
 					}
-					i {
-						font-size: 1.5rem;
+					.ais-SearchBox-submit {
 						position: absolute;
-						color: rgb(74, 74, 74);
-						top: 30%;
-						right: 35px;
+						right: 1rem;
+						top: calc(50% - 0.5rem);
+						background-color: transparent;
+						border: none;
+						display: none;
+					}
+					.custom-search-btn {
+						position: absolute;
+						right: 1rem;
+						top: calc(50% - 0.5rem);
+						color: rgb(42, 42, 42);
+					}
 
-						transition: all 100ms ease-in-out;
-						@include desk {
-							color: white;
-						}
+					.ais-SearchBox-reset {
+						position: absolute;
+						right: 2.2rem;
+						background-color: rgb(225, 225, 225);
+						border-radius: 50%;
+						color: white;
+						height: 30px;
+						width: 30px;
+						top: calc(50% - 15px);
+						border: none;
+
 						&:hover {
 							cursor: pointer;
-							transform: scale(1.2);
 						}
+					}
+					.ais-SearchBox-resetIcon {
+					}
+					.ais-Hits {
+						// position: absolute;
+						// top: 10px;
+						// width: 500px;
+						// margin: auto;
+						width: 100%;
+						position: absolute;
+						top: 60px;
+						left: 0;
+						z-index: 9 !important;
+					}
+					.ais-Hits-list {
+						list-style: none;
+
+						z-index: 99 !important;
+						width: 100%;
+
+						padding: 0;
+						margin: auto;
+					}
+					.ais-Hits-list li {
+						margin: 0.5rem auto;
+						background-color: rgba(245, 245, 245, 0.459);
+						padding: 0.7rem 1rem;
+						text-align: center;
+						color: white;
+						border-radius: 3px;
+						z-index: 99 !important;
+						backdrop-filter: blur(10px);
+						border: 1px solid rgb(194, 194, 194);
+						&:hover {
+							cursor: pointer;
+						}
+					}
+					.custom-hit {
+						z-index: 99 !important;
+						@include flex;
+						flex-direction: row;
+						justify-content: flex-start;
+						img {
+							height: 60px;
+							width: 75px;
+							object-fit: cover;
+							margin-right: 1rem;
+							border-radius: 5px;
+							// @include tab {
+							// 	height: 80px;
+							// 	width: 110px;
+							// }
+						}
+						p {
+							color: rgb(29, 29, 29);
+						}
+						// background-color: red;
+						// list-style: none;
+					}
+					.search-no-result {
+						position: absolute;
+						top: 50px;
+						color: black;
+						margin: auto;
+						@include flex;
+						width: 100%;
 					}
 				}
 			}
@@ -184,7 +269,7 @@ body {
 .top-places-section {
 	position: relative;
 	margin-top: -0px;
-	z-index: 9;
+	z-index: 3;
 	@include tab {
 		margin-top: -100px;
 	}
@@ -209,11 +294,15 @@ body {
 		padding: 0 20px;
 		overflow-x: scroll;
 		display: flex;
+		padding-bottom: 10px;
+
 		@include tab {
 			padding: 0 40px;
+			padding-bottom: 20px;
 		}
 		@include desk {
 			padding: 0 5%;
+			padding-bottom: 30px;
 		}
 	}
 }
@@ -233,14 +322,14 @@ body {
 		}
 	}
 	.nearby-places-cards {
-		padding: 0 20px;
+		padding: 0 30px;
 		overflow-x: scroll;
 		display: flex;
 		@include tab {
-			padding: 0 40px;
+			padding: 20px 40px;
 		}
 		@include desk {
-			padding: 0 5%;
+			padding: 20px 5%;
 		}
 	}
 }
@@ -1226,6 +1315,7 @@ body {
 				margin: 0;
 				margin-top: -10px;
 				flex-wrap: wrap;
+				margin: 50px;
 				@include tab {
 					padding-left: 2.5rem;
 				}
@@ -1446,6 +1536,10 @@ body {
 			z-index: -1;
 			padding: 10px;
 
+			@include tab {
+				width: calc(85% - 40px) !important;
+			}
+
 			.item {
 				width: 100%;
 				height: auto;
@@ -1568,7 +1662,7 @@ body {
 		flex-direction: row;
 
 		position: absolute;
-		top: 45%;
+		top: 200px;
 		left: 0;
 		margin: 0;
 
@@ -2879,85 +2973,96 @@ body {
 		width: auto;
 	}
 }
-//ed admin
-.ais-SearchBox {
-	margin: auto;
+//end admin
+// .ais-SearchBox {
+// 	background-color: red;
+// 	margin: auto;
 
-	width: 320px;
+// 	width: 320px;
 
-	position: relative;
-	margin-top: 50px !important;
-	max-width: 450px;
-	height: fit-content;
-	@include tab {
-		width: 420px;
-	}
-	@include desk {
-		width: 450px;
-	}
+// 	position: relative;
+// 	margin-top: 50px !important;
+// 	max-width: 450px;
+// 	height: fit-content;
+// 	@include tab {
+// 		width: 420px;
+// 	}
+// 	@include desk {
+// 		width: 450px;
+// 	}
 
-	input {
-		padding: 1.3rem 2rem;
-		background-color: #333333;
-		border: none;
-		border-radius: 5px;
-		width: 100%;
-		font-size: 1rem;
-		color: white;
-		-webkit-appearance: none;
-		box-shadow: 3px 5px 8px rgba(62, 62, 62, 0.591);
-		&::placeholder {
-			color: white;
-			opacity: 0.7;
-			text-align: center;
-		}
-	}
-	.input-icon {
-		font-size: 1.5rem;
-		position: absolute;
-		color: white;
-		top: 30%;
-		right: 35px;
-		z-index: 1;
-		transition: all 100ms ease-in-out;
+// 	input {
+// 		padding: 1.3rem 2rem;
+// 		background-color: #333333;
+// 		border: none;
+// 		border-radius: 5px;
+// 		width: 100% !important;
+// 		font-size: 1rem;
+// 		color: white;
+// 		-webkit-appearance: none;
+// 		box-shadow: 3px 5px 8px rgba(62, 62, 62, 0.591);
+// 		&::placeholder {
+// 			color: white;
+// 			opacity: 0.7;
+// 			text-align: center;
+// 		}
+// 	}
+// 	.input-icon {
+// 		font-size: 1.5rem;
+// 		position: absolute;
+// 		color: white;
+// 		top: 30%;
+// 		right: 35px;
+// 		z-index: 1;
+// 		transition: all 100ms ease-in-out;
 
-		&:hover {
-			cursor: pointer;
-			transform: scale(1.2);
-		}
-	}
-}
-.ais-SearchBox-submit {
-	position: absolute;
-	right: 1rem;
-	top: calc(50% - 0.5rem);
-	background-color: transparent;
-	border: none;
-}
-.ais-SearchBox-submitIcon {
-	height: 1rem;
-	width: 1rem;
-	color: rgb(255, 255, 255) !important;
-}
+// 		&:hover {
+// 			cursor: pointer;
+// 			transform: scale(1.2);
+// 		}
+// 	}
+// }
+// .ais-SearchBox-submit {
+// 	position: absolute;
+// 	right: 1rem;
+// 	top: calc(50% - 0.5rem);
+// 	background-color: transparent;
+// 	border: none;
+// }
+// .ais-SearchBox-submitIcon {
+// 	height: 1rem;
+// 	width: 1rem;
+// 	color: rgb(255, 255, 255) !important;
+// }
 
-.ais-Hits {
-	width: 500px;
-	margin: auto;
-}
-.ais-Hits-list {
-	list-style: none;
-	margin-left: -32px;
-}
-.ais-Hits-list li {
-	width: 100%;
-	margin: 0.5rem auto;
-	background-color: rgb(38, 38, 38);
-	padding: 1rem;
-	text-align: center;
-	color: white;
-	border-radius: 3px;
-}
-.hits {
-	// background-color: red;
-	// list-style: none;
-}
+// .ais-Hits {
+// 	// position: absolute;
+// 	// top: 10px;
+// 	// width: 500px;
+// 	// margin: auto;
+// 	position: absolute;
+// 	top: 30px;
+// 	left: 0;
+// 	z-index: 99 !important;
+// }
+// .ais-Hits-list {
+// 	list-style: none;
+// 	margin-left: -32px;
+
+// 	z-index: 99 !important;
+// }
+// .ais-Hits-list li {
+// 	width: 100%;
+// 	margin: 0.5rem auto;
+// 	background-color: rgb(38, 38, 38);
+// 	padding: 1rem;
+// 	text-align: center;
+// 	color: white;
+// 	border-radius: 3px;
+// 	z-index: 99 !important;
+// }
+// .hits {
+// 	z-index: 99 !important;
+// 	// background-color: red;
+// 	// list-style: none;
+// }
