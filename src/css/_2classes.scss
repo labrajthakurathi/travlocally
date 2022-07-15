@@ -341,6 +341,71 @@
 		}
 		.content-body {
 			@include flex;
+			.form {
+				width: 100%;
+
+				.input {
+					@include flex;
+					width: 100%;
+
+					label {
+						justify-self: flex-start;
+						width: 100%;
+						margin-bottom: 0.5rem;
+					}
+					.upload-wrapper {
+						width: 100%;
+
+						@include flex;
+						margin-bottom: 0.5rem;
+						align-items: flex-start;
+						flex-direction: row;
+						justify-content: space-around;
+
+						label {
+							padding: 0.5rem 1.5rem !important;
+							font-size: 0.8rem;
+							@include flex;
+							flex-direction: row;
+							margin: 0;
+							width: 50px;
+						}
+						input {
+							display: none;
+						}
+						button {
+							padding: 0.5rem 1.5rem !important;
+							font-size: 0.8rem;
+						}
+					}
+
+					input {
+						padding: 1rem;
+						width: calc(100% - 2rem);
+						margin-bottom: 0.5rem;
+						background-color: rgb(233, 233, 233);
+						border: none;
+						border-radius: 10px;
+					}
+					.pic-btn {
+						@include flex;
+						flex-direction: row;
+						width: 100%;
+						justify-content: flex-start;
+						img {
+							height: 60px;
+							width: 60px;
+							border-radius: 50%;
+							object-fit: cover;
+						}
+						button {
+							padding: 0.5rem 1rem;
+							margin-left: 0.5rem;
+							font-size: 0.8rem;
+						}
+					}
+				}
+			}
 		}
 	}
 	.assign {
@@ -799,6 +864,15 @@
 		}
 	}
 }
+.rounded {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	.pic-spinner {
+		height: 30px;
+		width: 30px;
+	}
+}
 .category {
 	width: 140px;
 	height: 170px;
@@ -910,6 +984,7 @@
 	i {
 		font-size: 2rem;
 		margin-top: 0;
+		text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.495);
 	}
 }
 

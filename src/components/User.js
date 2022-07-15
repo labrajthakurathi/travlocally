@@ -14,12 +14,15 @@ import Admin from "./Admin";
 import UserCurv from "../images/user-cuvr.png";
 import { Link } from "react-router-dom";
 import MostViewedPlaces from "./MostViewedPlaces";
+import EditInfoModal from "./EditInfoModal";
 
 const User = () => {
 	const PlaceContext = useContext(placeContext);
 	const { state } = PlaceContext;
 	const [placeAry, setPlaceAry] = useState([]);
 	const [user, setUser] = useState("");
+	const [edit, setEdit] = useState(false);
+	const [show, setShow] = useState(false);
 	useEffect(() => {
 		const estRef = collection(db, "places");
 
@@ -48,13 +51,51 @@ const User = () => {
 		};
 		getEst();
 	}, []);
+	console.log(state);
 
 	return (
 		<div className='user'>
+			{edit && <EditInfoModal setEdit={setEdit} uid={state.user.uid} />}
+			<div
+				className={
+					show
+						? "user-logo-wrapper reveal user-header"
+						: "user-logo-wrapper user-header"
+				}
+			>
+				<i className='fa fa-angle-down' onClick={() => setShow(!show)}></i>
+
+				<div className='user-menu'>
+					<ul>
+						<Link to='/me'>
+							<li>
+								<p>My Account</p>
+								<i className='fas fa-user'></i>
+							</li>
+						</Link>
+						<li
+							onClick={() => {
+								setEdit(true);
+								setShow(false);
+							}}
+						>
+							<p>Edit Account</p>
+							<i className='fas fa-edit'></i>
+							<i className='fas fa-pen-to-square'></i>
+						</li>
+
+						<li>
+							<p>Logout</p> <i className='fas fa-sign-out-alt '></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+
 			{user.cat === "admin" ? (
 				<Admin />
 			) : (
 				<div className='content'>
+					{}
 					<div className='top'>
 						<img src={UserCurv} alt='TravLocally asset' />
 

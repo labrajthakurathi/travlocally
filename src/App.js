@@ -5,6 +5,7 @@ import AddPlaces from "./components/AddPlaces";
 import Blogs from "./components/Blogs";
 import PlaceState from "./components/context/place/PlaceState";
 import Error from "./components/Error";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Loading from "./components/Loading";
@@ -37,6 +38,7 @@ function App() {
 						<Route exact path='/blog/preview' element={<Preview />} />
 						<Route exact path='*' element={<Error />} />
 					</Routes>
+					<Footer />
 				</Router>
 			</div>
 		</PlaceState>

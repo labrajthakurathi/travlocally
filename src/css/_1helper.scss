@@ -108,18 +108,27 @@ $desk-height: 100vh;
 	padding: 0 20px;
 	justify-content: center;
 
-	.user-logo-wrapper {
-		width: 100%;
-		margin-top: 20px;
+	.logo {
+		margin-top: 0px;
 
+		img {
+			margin-top: 10px;
+			height: auto;
+			width: 48px;
+
+			z-index: 9;
+		}
+	}
+	.sudo-logo-wrapper {
+		z-index: -1;
+		width: 100%;
 		@include flex;
 		align-items: flex-start;
-
-		.user-logo {
+		.sudo-logo {
 			height: 40px !important;
 			width: 40px !important;
 			border-radius: 25px;
-			background-color: black;
+			background-color: rgb(0, 0, 0);
 			box-shadow: 2px 2px 10px white;
 
 			width: 50px;
@@ -135,79 +144,6 @@ $desk-height: 100vh;
 
 				transform: scale(1.05);
 			}
-		}
-		.fa-sort-down {
-			margin-left: 10px;
-			margin-top: -15px;
-			font-size: 2rem;
-			color: white;
-			transition: all 200ms ease-in-out;
-			transform-origin: center center;
-			text-shadow: 3px 3px 10px rgb(0, 0, 0);
-		}
-		.user-menu {
-			position: absolute;
-			top: -100vh;
-			left: -30px;
-			transition: all 300ms ease-in-out;
-
-			width: auto;
-			ul {
-				list-style: none;
-
-				a {
-					text-decoration: none;
-					color: black;
-				}
-				li {
-					background-color: #f6f6f6;
-					margin: 10px;
-					padding: 0 20px;
-					width: 100%;
-					border-radius: 30px;
-					@include flex;
-					flex-direction: row;
-					@include shadow;
-					text-decoration: none;
-					transition: all 200ms ease-in-out;
-
-					i {
-						color: $primary;
-						font-size: 1.2rem;
-						margin-left: 0.5rem;
-					}
-					&:hover {
-						cursor: pointer;
-						transform: scale(1.05);
-					}
-				}
-			}
-		}
-	}
-
-	.reveal {
-		.fa-sort-down {
-			transform: rotateZ(180deg) translateY(-15px);
-		}
-		.user-menu {
-			top: 70px;
-
-			ul {
-				li {
-				}
-			}
-		}
-	}
-
-	.logo {
-		margin-top: 0px;
-
-		img {
-			margin-top: 10px;
-			height: auto;
-			width: 48px;
-
-			z-index: 9;
 		}
 	}
 	.icon-menu-wrapper {
@@ -230,7 +166,11 @@ $desk-height: 100vh;
 				color: black;
 				font-weight: bolder;
 				text-decoration: none;
-				text-shadow: 1px 1px 1px black;
+				text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.58);
+				transition: all 300ms ease-in-out;
+				&:hover {
+					transform: scale(1.1);
+				}
 			}
 		}
 
@@ -334,8 +274,202 @@ $desk-height: 100vh;
 	}
 }
 
-// .show {
-// 	overflow: auto;
+//end header
+
+/// footer
+.footer {
+	padding-bottom: 1rem;
+	width: 100%;
+	background-color: white;
+	border-radius: 10px 10px 0 0;
+
+	.find-sec {
+		margin: 1rem 0;
+		@include flex;
+		h4 {
+			margin-bottom: 0.5rem;
+			@include desk {
+				margin-top: 2rem;
+			}
+		}
+		.icons {
+			width: 40%;
+			@include flex;
+			flex-direction: row;
+			justify-content: space-around;
+			max-width: 300px;
+			.icon-wrapper {
+				height: 60px;
+				width: 60px;
+				background-color: $light;
+				@include flex;
+				transition: all 300ms ease-in-out;
+				text-decoration: none;
+				&:hover {
+					cursor: pointer;
+					background-color: $primary;
+					i {
+						color: white !important;
+						font-size: 1.8rem;
+					}
+				}
+
+				border-radius: 50%;
+				i {
+					transition: all 300ms ease-in-out;
+					transition-delay: 100ms;
+					font-size: 1.6rem;
+					color: $primary;
+				}
+			}
+		}
+	}
+	.text-sec {
+		@include flex;
+		opacity: 0.8;
+		@include desk {
+			flex-direction: row;
+			justify-content: center;
+		}
+		.copyright {
+			width: 100%;
+			@include flex;
+
+			p {
+				margin: 0;
+				padding: 0.3rem;
+			}
+
+			i {
+				color: $secondary-dark;
+				margin: 0 0.3rem;
+			}
+			@include desk {
+				justify-self: flex-end;
+				align-items: flex-end;
+			}
+		}
+		.developer {
+			width: 100%;
+			@include flex;
+			margin-top: 0;
+			p {
+				font-style: italic;
+				margin: 0;
+				padding: 0.3rem;
+				i {
+					color: $secondary-dark;
+					margin: 0 0.3rem;
+					font-style: italic;
+				}
+			}
+			@include desk {
+				justify-self: flex-start;
+				align-items: flex-start;
+				position: relative;
+				margin-left: 1rem;
+				&:before {
+					content: "";
+					height: 8px;
+					width: 8px;
+					display: block;
+					background-color: $primary;
+					position: absolute;
+					border-radius: 50%;
+					top: calc(50% - 4px);
+					left: -0.7rem;
+				}
+			}
+		}
+	}
+}
+/// end footer
+
+.user-logo-wrapper {
+	// z-index: -1;
+	// width: 100%;
+	position: absolute;
+	margin-top: 20px;
+	left: 65px;
+	@include flex;
+	align-items: flex-start;
+
+	.fa-angle-down {
+		z-index: 8;
+
+		font-size: 1.5rem;
+		color: white;
+		transition: all 200ms ease-in-out;
+
+		height: 30px;
+		width: 30px;
+		@include flex;
+		background-color: rgba(247, 247, 247, 0.047);
+		border-radius: 50%;
+		transform-origin: 14px 7px;
+		&:hover {
+			cursor: pointer;
+			background-color: rgb(226, 226, 226);
+			color: black;
+		}
+	}
+	.user-menu {
+		position: absolute;
+		top: -100vh;
+		left: -30px;
+		transition: all 300ms ease-in-out;
+
+		width: auto;
+		z-index: 8;
+		ul {
+			list-style: none;
+
+			a {
+				text-decoration: none;
+				color: black;
+			}
+			li {
+				background-color: #f6f6f6;
+				margin: 10px;
+				padding: 0 20px;
+				width: 100%;
+				border-radius: 30px;
+				@include flex;
+				flex-direction: row;
+				@include shadow;
+				text-decoration: none;
+				transition: all 200ms ease-in-out;
+
+				i {
+					color: $primary;
+					font-size: 1.2rem;
+					margin-left: 0.5rem;
+				}
+				&:hover {
+					cursor: pointer;
+					transform: scale(1.05);
+				}
+			}
+		}
+	}
+}
+// .user-header {
+// 	margin-top: 100px;
+// 	z-index: 9;
+// 	margin-left: 500px !important;
 // }
 
-//end header
+.reveal {
+	.fa-angle-down {
+		transform: rotateZ(180deg) translateY(-15px);
+	}
+	.user-menu {
+		top: 20px;
+		left: -50px;
+
+		ul {
+			li {
+			}
+		}
+	}
+}

@@ -36,13 +36,11 @@ const Header = () => {
 	return (
 		<div className='header'>
 			{state.user && (
-				<div
-					className={show ? "user-logo-wrapper reveal" : "user-logo-wrapper"}
-				>
-					<div className='user-logo' onClick={() => setShow(!show)}>
-						<i className={show ? "fas fa-times" : "fas fa-user"}></i>
+				<div className='sudo-logo-wrapper reveal'>
+					<div className='sudo-logo'>
+						<i className='fas fa-user'></i>
 					</div>
-					<i className='fa fa-sort-down'></i>
+					{/* <i className='fa fa-sort-down'></i>
 
 					<div className='user-menu'>
 						<ul>
@@ -62,9 +60,10 @@ const Header = () => {
 								<p>Logout</p> <i className='fas fa-sign-out-alt '></i>
 							</li>
 						</ul>
-					</div>
+					</div> */}
 				</div>
 			)}
+
 			<Link to='/' className='logo'>
 				<img
 					src='https://firebasestorage.googleapis.com/v0/b/travlocally-34376.appspot.com/o/app%2Flogo%20%20(3).png?alt=media&token=c2c5dc99-5661-4036-81df-d5cb3b649c23'

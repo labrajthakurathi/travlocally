@@ -61,7 +61,7 @@ body {
 			}
 			@include desk {
 				flex-direction: row;
-				height: 75vh;
+				height: 80vh;
 			}
 			.texts {
 				padding: 0 20px;
@@ -81,7 +81,7 @@ body {
 						font-size: 2rem;
 					}
 					@include desk {
-						font-size: 2.4rem;
+						font-size: 2.8rem;
 						max-width: 600px;
 					}
 				}
@@ -94,6 +94,7 @@ body {
 					}
 					@include desk {
 						max-width: 600px;
+						font-size: 2rem;
 					}
 				}
 			}
@@ -108,12 +109,15 @@ body {
 				}
 				@include desk {
 					width: 350px;
+
+					margin-top: -50px;
 				}
 				h2 {
 					text-align: center;
 
 					@include desk {
 						color: $dark;
+						font-size: 2rem;
 					}
 				}
 				.bar {
@@ -266,6 +270,7 @@ body {
 		}
 	}
 }
+
 .top-places-section {
 	position: relative;
 	margin-top: -0px;
@@ -275,6 +280,10 @@ body {
 	}
 	@include desk {
 		margin-top: -20vh;
+	}
+	@include large {
+		margin: 0 10%;
+		padding-bottom: 30px;
 	}
 
 	h2 {
@@ -305,8 +314,19 @@ body {
 			padding-bottom: 30px;
 		}
 	}
+	.arrow {
+		i {
+			position: absolute;
+			top: 50%;
+			right: 1rem;
+			color: white;
+			text-shadow: 2px 2px 5px black;
+			font-size: 1.5rem;
+		}
+	}
 }
 .nearby-places-section {
+	position: relative;
 	overflow: hidden;
 	h2 {
 		padding: 0 20px;
@@ -320,9 +340,15 @@ body {
 		@include desk {
 			padding: 0 5%;
 		}
+		@include large {
+			margin: 0 10%;
+			padding-bottom: 30px;
+		}
 	}
+
 	.nearby-places-cards {
-		padding: 0 30px;
+		position: relative;
+		padding: 0 15px;
 		overflow-x: scroll;
 		display: flex;
 		@include tab {
@@ -330,6 +356,38 @@ body {
 		}
 		@include desk {
 			padding: 20px 5%;
+		}
+		@include large {
+			margin: 0 10%;
+			padding-bottom: 30px;
+		}
+	}
+
+	.arrow {
+		z-index: 10;
+		i {
+			z-index: 10;
+			position: absolute;
+			top: 50%;
+			right: 1rem;
+			color: white;
+			text-shadow: 2px 2px 5px black;
+			font-size: 1.5rem;
+		}
+	}
+	.fav-places-cards {
+		padding: 0 18px;
+		overflow-x: scroll;
+		display: flex;
+		@include tab {
+			padding: 20px 40px;
+		}
+		@include desk {
+			padding: 20px 5%;
+		}
+		@include large {
+			margin: 0 10%;
+			padding-bottom: 30px;
 		}
 	}
 }
@@ -2971,6 +3029,26 @@ body {
 	.show {
 		height: auto;
 		width: auto;
+	}
+	.app-sec {
+		width: 90%;
+		max-width: 1000px;
+		@include flex;
+		margin: 1rem auto;
+		.current-pic {
+			width: 100%;
+			@include flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			margin-left: 2rem;
+			img {
+				height: 200px;
+				border-radius: 10px;
+			}
+			button {
+				margin-left: 1rem;
+			}
+		}
 	}
 }
 //end admin

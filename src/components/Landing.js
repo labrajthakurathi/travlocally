@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Loading from "./Loading";
 import Bg from "../images/travel.jpg";
 import Search from "./Search";
+import {
+	doc,
+	deleteDoc,
+	collection,
+	getDocs,
+	setDoc,
+	getDoc,
+} from "firebase/firestore";
+import { db, onSnapshot } from "../firebase";
 
 const Landing = () => {
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 	const [loading, setLoading] = useState(true);
+	const [home, setHome] = useState("");
 
 	window.addEventListener("resize", () => {
 		setScreenWidth(window.innerWidth);
@@ -13,6 +23,19 @@ const Landing = () => {
 	const handleLoad = () => {
 		setLoading(false);
 	};
+	useEffect(() => {
+		getHome();
+	}, []);
+	const getHome = async () => {
+		const unsub = await onSnapshot(doc(db, "app", "home"), (doc) => {
+			setHome(doc.data());
+		});
+	};
+	// (async () => {
+	// 	const unsub = await onSnapshot(doc(db, "app", "home"), (doc) => {
+	// 		setHome(doc.data());
+	// 	});
+	// })();
 
 	return (
 		<div className='landing-page'>
@@ -20,7 +43,11 @@ const Landing = () => {
 
 			<div className='landing-section-1'>
 				<div className='img'>
-					<img src={Bg} alt='TravLocally Hero picture' onLoad={handleLoad} />
+					<img
+						src={home.pic}
+						alt='TravLocally Hero picture'
+						onLoad={handleLoad}
+					/>
 					{/* <img src={Bg} alt='TravLocally Hero picture' onLoad={handleLoad} /> */}
 				</div>
 				<div className='overlay'></div>

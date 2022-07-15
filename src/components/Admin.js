@@ -12,6 +12,8 @@ import { db, onSnapshot } from "../firebase";
 import Loading from "./Loading";
 
 import AssingModal from "./AssingModal";
+import PhotoSelectUpload from "./PhotoSelectUpload";
+import SearchImages from "./SearchImages";
 
 const Admin = () => {
 	const [type, setType] = useState("blogs");
@@ -23,6 +25,8 @@ const Admin = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [currentItem, setCurrentItem] = useState("");
 	const [places, setPlaces] = useState([]);
+	const [picMethod, setPicMethod] = useState("");
+	const [home, setHome] = useState("");
 	let show = searched.length ? searched : data;
 
 	const navigate = useNavigate();
@@ -58,6 +62,14 @@ const Admin = () => {
 	const getPlaces = async () => {
 		const unsub = await onSnapshot(doc(db, "category", catType), (doc) => {
 			setPlaces(doc.data().items);
+		});
+	};
+	useEffect(() => {
+		getHome();
+	}, []);
+	const getHome = async () => {
+		const unsub = await onSnapshot(doc(db, "app", "home"), (doc) => {
+			setHome(doc.data());
 		});
 	};
 
@@ -289,6 +301,18 @@ const Admin = () => {
 								</div>
 							))}
 					</div>
+				)}
+			</div>
+			<div className='app-sec '>
+				<div className='current-pic'>
+					<img src={home.pic} alt='' />
+					<button className='btn-dark' onClick={() => setPicMethod("change")}>
+						Change pic
+					</button>
+				</div>
+
+				{picMethod !== "" && (
+					<SearchImages setPicMethod={setPicMethod} picMethod={picMethod} />
 				)}
 			</div>
 		</div>
