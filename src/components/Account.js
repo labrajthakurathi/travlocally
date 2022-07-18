@@ -18,7 +18,7 @@ const Account = () => {
 
 				setVerify(user.emailVerified);
 			} else {
-				setAlert("Something Went Wrong");
+				return;
 			}
 		});
 	}, []);

@@ -81,20 +81,21 @@ body {
 						font-size: 2rem;
 					}
 					@include desk {
-						font-size: 2.8rem;
+						font-size: 2.5rem;
 						max-width: 600px;
 					}
 				}
 				h4 {
 					// backdrop-filter: blur(1px);
 					margin-top: -10px;
+					max-width: 400px;
 
 					@include tab {
 						font-size: 1.3rem;
 					}
 					@include desk {
 						max-width: 600px;
-						font-size: 2rem;
+						font-size: 1.6rem;
 					}
 				}
 			}
@@ -118,132 +119,6 @@ body {
 					@include desk {
 						color: $dark;
 						font-size: 2rem;
-					}
-				}
-				.bar {
-					position: relative;
-					.ais-SearchBox {
-						width: 100% !important;
-
-						input {
-							padding: 1.1rem 2rem;
-							background-color: white;
-							border: none;
-							border-radius: 30px;
-							width: 100%;
-							font-size: 1rem;
-							color: rgb(0, 0, 0);
-							-webkit-appearance: none;
-							box-shadow: 3px 5px 8px rgba(62, 62, 62, 0.591);
-							@include desk {
-								background-color: $secondary;
-								color: white;
-							}
-							&::placeholder {
-								color: rgb(74, 74, 74);
-
-								text-align: center;
-								@include desk {
-									color: white;
-								}
-							}
-						}
-					}
-					.ais-SearchBox-submit {
-						position: absolute;
-						right: 1rem;
-						top: calc(50% - 0.5rem);
-						background-color: transparent;
-						border: none;
-						display: none;
-					}
-					.custom-search-btn {
-						position: absolute;
-						right: 1rem;
-						top: calc(50% - 0.5rem);
-						color: rgb(42, 42, 42);
-					}
-
-					.ais-SearchBox-reset {
-						position: absolute;
-						right: 2.2rem;
-						background-color: rgb(225, 225, 225);
-						border-radius: 50%;
-						color: white;
-						height: 30px;
-						width: 30px;
-						top: calc(50% - 15px);
-						border: none;
-
-						&:hover {
-							cursor: pointer;
-						}
-					}
-					.ais-SearchBox-resetIcon {
-					}
-					.ais-Hits {
-						// position: absolute;
-						// top: 10px;
-						// width: 500px;
-						// margin: auto;
-						width: 100%;
-						position: absolute;
-						top: 60px;
-						left: 0;
-						z-index: 9 !important;
-					}
-					.ais-Hits-list {
-						list-style: none;
-
-						z-index: 99 !important;
-						width: 100%;
-
-						padding: 0;
-						margin: auto;
-					}
-					.ais-Hits-list li {
-						margin: 0.5rem auto;
-						background-color: rgba(245, 245, 245, 0.459);
-						padding: 0.7rem 1rem;
-						text-align: center;
-						color: white;
-						border-radius: 3px;
-						z-index: 99 !important;
-						backdrop-filter: blur(10px);
-						border: 1px solid rgb(194, 194, 194);
-						&:hover {
-							cursor: pointer;
-						}
-					}
-					.custom-hit {
-						z-index: 99 !important;
-						@include flex;
-						flex-direction: row;
-						justify-content: flex-start;
-						img {
-							height: 60px;
-							width: 75px;
-							object-fit: cover;
-							margin-right: 1rem;
-							border-radius: 5px;
-							// @include tab {
-							// 	height: 80px;
-							// 	width: 110px;
-							// }
-						}
-						p {
-							color: rgb(29, 29, 29);
-						}
-						// background-color: red;
-						// list-style: none;
-					}
-					.search-no-result {
-						position: absolute;
-						top: 50px;
-						color: black;
-						margin: auto;
-						@include flex;
-						width: 100%;
 					}
 				}
 			}
@@ -364,9 +239,9 @@ body {
 	}
 
 	.arrow {
-		z-index: 10;
+		z-index: 9;
 		i {
-			z-index: 10;
+			z-index: 9;
 			position: absolute;
 			top: 50%;
 			right: 1rem;
@@ -951,14 +826,15 @@ body {
 		}
 	}
 	.finish {
-		width: 90%;
+		width: 100%;
 		max-width: 400px;
 		margin: auto;
 		@include flex;
-		margin: 20px auto;
+		margin: 10px auto;
+
 		.btn-dark {
-			width: 80%;
-			max-width: 300px;
+			width: 100%;
+
 			text-align: center;
 			text-decoration: none;
 		}
@@ -1264,6 +1140,7 @@ body {
 	}
 }
 .verify-email {
+	min-height: 100vh;
 	.top-sec {
 		height: 45vh;
 		width: 100%;
@@ -1306,6 +1183,7 @@ body {
 	}
 }
 .user {
+	margin-top: 0;
 	::-webkit-scrollbar {
 		display: none;
 	}
@@ -1323,7 +1201,7 @@ body {
 		text-align: center;
 		color: white;
 
-		img {
+		.top-sec-img {
 			position: absolute;
 			width: 100%;
 			height: 55vh;
@@ -1339,7 +1217,7 @@ body {
 			.search {
 				position: relative;
 				input {
-					background-color: $primary;
+					background-color: $primary !important;
 				}
 			}
 		}
@@ -1404,7 +1282,7 @@ body {
 
 //place
 .place {
-	height: 100vh;
+	min-height: 100vh;
 	width: 100%;
 	box-sizing: border-box;
 	padding: 0;
@@ -1794,6 +1672,25 @@ body {
 			font-size: 2rem;
 		}
 	}
+	.author {
+		margin: 1rem 0;
+		width: 100%;
+		p {
+			opacity: 0.7;
+			font-size: 0.9rem;
+			padding: 0;
+			margin: 0;
+		}
+		.editors {
+			@include flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: flex-start;
+			.list {
+				margin-left: 0.1rem;
+			}
+		}
+	}
 }
 //end place
 
@@ -1965,6 +1862,7 @@ body {
 
 ///write blog
 .write-blog {
+	min-height: 100vh;
 	width: calc(100% - 2rem);
 	margin-top: 80px;
 	padding: 1rem;
@@ -2283,6 +2181,7 @@ body {
 		padding: 0.5rem 0;
 		background-color: rgba(255, 255, 255, 0.265);
 		backdrop-filter: blur(5px);
+		z-index: 1;
 		@include desk {
 			padding: 2rem 0;
 		}
@@ -2541,6 +2440,16 @@ body {
 				border-radius: 50%;
 				object-fit: cover;
 			}
+			.no-pic {
+				height: 50px;
+				width: 50px;
+				border-radius: 50%;
+				background-color: black;
+				@include flex;
+				i {
+					color: white;
+				}
+			}
 			p {
 				margin-left: 0.5rem;
 				opacity: 0.6;
@@ -2772,6 +2681,7 @@ body {
 		.comment-sec {
 			background-color: white;
 			margin-top: -0.5rem;
+
 			.comment-card {
 				@include desk {
 					display: flex;
@@ -2865,7 +2775,6 @@ body {
 	padding: 0;
 	margin: 0;
 	background-color: rgb(60, 60, 60);
-	margin-top: -20px;
 	padding-top: 80px;
 	padding-bottom: 50px;
 	min-height: calc(100vh - 100px);
@@ -2977,54 +2886,6 @@ body {
 				}
 			}
 		}
-		.data-list {
-			@include flex;
-			margin-top: 2rem;
-
-			.admin-card {
-				background-color: rgb(39, 39, 39);
-				margin: 0.3rem;
-				width: 400px;
-				padding: 0.5rem 1rem;
-				border-radius: 5px;
-				@include flex;
-				flex-direction: row;
-				justify-content: space-between;
-				.name-email {
-					p {
-						margin: 0;
-						&:nth-child(2) {
-							color: $primary;
-						}
-					}
-				}
-				p {
-					color: rgb(223, 223, 223);
-					max-height: 36px;
-					overflow: hidden;
-				}
-				.action {
-					@include flex;
-					flex-direction: row;
-					margin-left: 1rem;
-					i {
-						margin: 0.2rem;
-						color: white;
-						font-size: 1.3rem;
-						height: 40px;
-						width: 40px;
-						background-color: rgb(74, 74, 74);
-						@include flex;
-						border-radius: 50%;
-						transition: all 200ms ease-in-out;
-						&:hover {
-							cursor: pointer;
-							transform: scale(1.1);
-						}
-					}
-				}
-			}
-		}
 	}
 	.show {
 		height: auto;
@@ -3049,98 +2910,59 @@ body {
 				margin-left: 1rem;
 			}
 		}
+		.change {
+			@include flex;
+			width: 100%;
+			background-color: red;
+		}
 	}
 }
-//end admin
-// .ais-SearchBox {
-// 	background-color: red;
-// 	margin: auto;
 
-// 	width: 320px;
+.data-list {
+	@include flex;
+	margin-top: 2rem;
 
-// 	position: relative;
-// 	margin-top: 50px !important;
-// 	max-width: 450px;
-// 	height: fit-content;
-// 	@include tab {
-// 		width: 420px;
-// 	}
-// 	@include desk {
-// 		width: 450px;
-// 	}
-
-// 	input {
-// 		padding: 1.3rem 2rem;
-// 		background-color: #333333;
-// 		border: none;
-// 		border-radius: 5px;
-// 		width: 100% !important;
-// 		font-size: 1rem;
-// 		color: white;
-// 		-webkit-appearance: none;
-// 		box-shadow: 3px 5px 8px rgba(62, 62, 62, 0.591);
-// 		&::placeholder {
-// 			color: white;
-// 			opacity: 0.7;
-// 			text-align: center;
-// 		}
-// 	}
-// 	.input-icon {
-// 		font-size: 1.5rem;
-// 		position: absolute;
-// 		color: white;
-// 		top: 30%;
-// 		right: 35px;
-// 		z-index: 1;
-// 		transition: all 100ms ease-in-out;
-
-// 		&:hover {
-// 			cursor: pointer;
-// 			transform: scale(1.2);
-// 		}
-// 	}
-// }
-// .ais-SearchBox-submit {
-// 	position: absolute;
-// 	right: 1rem;
-// 	top: calc(50% - 0.5rem);
-// 	background-color: transparent;
-// 	border: none;
-// }
-// .ais-SearchBox-submitIcon {
-// 	height: 1rem;
-// 	width: 1rem;
-// 	color: rgb(255, 255, 255) !important;
-// }
-
-// .ais-Hits {
-// 	// position: absolute;
-// 	// top: 10px;
-// 	// width: 500px;
-// 	// margin: auto;
-// 	position: absolute;
-// 	top: 30px;
-// 	left: 0;
-// 	z-index: 99 !important;
-// }
-// .ais-Hits-list {
-// 	list-style: none;
-// 	margin-left: -32px;
-
-// 	z-index: 99 !important;
-// }
-// .ais-Hits-list li {
-// 	width: 100%;
-// 	margin: 0.5rem auto;
-// 	background-color: rgb(38, 38, 38);
-// 	padding: 1rem;
-// 	text-align: center;
-// 	color: white;
-// 	border-radius: 3px;
-// 	z-index: 99 !important;
-// }
-// .hits {
-// 	z-index: 99 !important;
-// 	// background-color: red;
-// 	// list-style: none;
-// }
+	.admin-card {
+		background-color: rgb(39, 39, 39);
+		margin: 0.3rem;
+		width: 400px;
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		@include flex;
+		flex-direction: row;
+		justify-content: space-between;
+		.name-email {
+			p {
+				margin: 0;
+				&:nth-child(2) {
+					color: $primary;
+				}
+			}
+		}
+		p {
+			color: rgb(223, 223, 223);
+			max-height: 36px;
+			overflow: hidden;
+		}
+		.action {
+			@include flex;
+			flex-direction: row;
+			margin-left: 1rem;
+			i {
+				margin: 0.2rem;
+				color: white;
+				font-size: 1.3rem;
+				height: 40px;
+				width: 40px;
+				background-color: rgb(74, 74, 74);
+				@include flex;
+				border-radius: 50%;
+				transition: all 200ms ease-in-out;
+				&:hover {
+					cursor: pointer;
+					transform: scale(1.1);
+				}
+			}
+		}
+	}
+}

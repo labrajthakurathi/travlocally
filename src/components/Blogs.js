@@ -7,6 +7,7 @@ import BlogCard from "./BlogCard";
 import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 const Blogs = () => {
 	const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -28,9 +29,10 @@ const Blogs = () => {
 		};
 		getData();
 	}, []);
-	console.log(blogs);
+
 	return (
 		<div className='blog-landing'>
+			{blogs.length === 0 && <Loading />}
 			<div className='blog-top-sec'>
 				{screenWidth < 1040 ? (
 					<>

@@ -79,8 +79,9 @@ const PlaceState = (props) => {
 	//upload item
 	const uploadItem = async (item, setCurrentItem, type, about) => {
 		setLoading();
+		const id = uuidv4();
 		const data = {
-			item_id: item.place_id,
+			item_id: id,
 			name: item.name,
 			lng: item.coordinates.lng,
 			lat: item.coordinates.lat,
@@ -93,19 +94,19 @@ const PlaceState = (props) => {
 			dislike: 0,
 		};
 
-		const docRef1 = doc(db, "establishment", item.place_id);
-		const docRef2 = doc(db, "places", state.place.place_id);
+		const docRef1 = doc(db, "establishment", id);
+		const docRef2 = doc(db, "review_places", state.place.place_id);
 		let req1 = await setDoc(docRef1, data);
 
 		let req2 =
 			type == "eat"
 				? await updateDoc(docRef2, {
-						est_eat: [...state.place.est_eat, item.place_id],
+						est_eat: [...state.place.est_eat, id],
 				  })
 				: await updateDoc(
 						docRef2,
 						{
-							est_visit: [...state.place.est_visit, item.place_id],
+							est_visit: [...state.place.est_visit, id],
 						},
 						{ merge: true }
 				  );
@@ -131,7 +132,7 @@ const PlaceState = (props) => {
 			tip: tip,
 		};
 		const docRef1 = doc(db, "establishment", uid);
-		const docRef2 = doc(db, "places", state.place.place_id);
+		const docRef2 = doc(db, "review_places", state.place.place_id);
 		let req1 = await setDoc(docRef1, data);
 
 		let req2 = await updateDoc(
@@ -203,6 +204,14 @@ const PlaceState = (props) => {
 	//getPlace
 	const getPlace = () => {
 		const placeId = localStorage.getItem("place_id");
+		const unSub = onSnapshot(doc(db, "review_places", placeId), (doc) => {
+			dispatch({ type: "UPDATE_PLACE", payload: doc.data() });
+		});
+	};
+	//end getPlace
+	//getPlace
+	const getPlaceEdit = () => {
+		const placeId = localStorage.getItem("edit_place_id");
 		const unSub = onSnapshot(doc(db, "places", placeId), (doc) => {
 			dispatch({ type: "UPDATE_PLACE", payload: doc.data() });
 		});
@@ -211,7 +220,7 @@ const PlaceState = (props) => {
 
 	const uploadPlace = async (current) => {
 		setLoading();
-		const docRef = doc(db, "places", state.place.place_id);
+		const docRef = doc(db, "review_places", state.place.place_id);
 
 		if (current != "") {
 			if (current.selfUpload == false) {
@@ -222,7 +231,11 @@ const PlaceState = (props) => {
 					est_visit: [],
 					comments: [],
 					tips: [],
+					editors: [state.user.uid],
 					parent_id: state.user.uid,
+					self_upload: false,
+					reviewed: false,
+					in_review: false,
 				};
 				let req = await setDoc(docRef, { ...place });
 			} else {
@@ -236,7 +249,11 @@ const PlaceState = (props) => {
 					est_visit: [],
 					comments: [],
 					tips: [],
+					editors: [state.user.uid],
 					parent_id: state.user.uid,
+					self_upload: true,
+					reviewed: false,
+					in_review: false,
 				};
 				let req = await setDoc(docRef, { ...place });
 			}
@@ -413,6 +430,7 @@ const PlaceState = (props) => {
 		setLive,
 		uploadTips,
 		addBlogComment,
+		getPlaceEdit,
 	};
 	return (
 		<PlaceContext.Provider value={value}>

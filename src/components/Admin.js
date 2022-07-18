@@ -6,14 +6,20 @@ import {
 	getDocs,
 	setDoc,
 	getDoc,
+	onSnapshot,
+	query,
+	where,
 } from "firebase/firestore";
+
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
-import { db, onSnapshot } from "../firebase";
+import { db } from "../firebase";
 import Loading from "./Loading";
 
 import AssingModal from "./AssingModal";
 import PhotoSelectUpload from "./PhotoSelectUpload";
 import SearchImages from "./SearchImages";
+import Card3 from "./Card3";
 
 const Admin = () => {
 	const [type, setType] = useState("blogs");
@@ -27,6 +33,8 @@ const Admin = () => {
 	const [places, setPlaces] = useState([]);
 	const [picMethod, setPicMethod] = useState("");
 	const [home, setHome] = useState("");
+	const [picChange, setPicChange] = useState(false);
+	const [placeAry, setPlaceAry] = useState([]);
 	let show = searched.length ? searched : data;
 
 	const navigate = useNavigate();
@@ -39,6 +47,24 @@ const Admin = () => {
 		getPlaces();
 	}, [catType]);
 
+	useEffect(() => {
+		const getReviews = async () => {
+			const q = query(
+				collection(db, "review_places"),
+				where("in_review", "==", true)
+			);
+			const unsubscribe = onSnapshot(q, (querySnapshot) => {
+				const arry = [];
+				querySnapshot.forEach((doc) => {
+					arry.push(doc.data());
+					console.log("ran");
+				});
+				setPlaceAry(arry);
+			});
+		};
+		return getReviews();
+	}, []);
+
 	const getData = async () => {
 		const querySnapshot = await getDocs(collection(db, type));
 		let dataArry = [];
@@ -46,18 +72,7 @@ const Admin = () => {
 			dataArry.push(doc.data());
 		});
 
-		if (type === "places") {
-			setData(
-				dataArry.filter(
-					(item) =>
-						item.type !== "popular" &&
-						item.type !== "most_viewed" &&
-						item.type !== "travlocally_favorite"
-				)
-			);
-		} else {
-			setData([...dataArry]);
-		}
+		setData([...dataArry]);
 	};
 	const getPlaces = async () => {
 		const unsub = await onSnapshot(doc(db, "category", catType), (doc) => {
@@ -74,17 +89,44 @@ const Admin = () => {
 	};
 
 	const handleDelete = async (id, item) => {
-		await deleteDoc(doc(db, type, id));
-		if (type === "blogs") {
+		if (type === "places") {
+			let place = id;
+			const storage = getStorage();
+			if (place.self_upload === true) {
+				const imageRef = ref(storage, place.picture);
+				deleteObject(imageRef)
+					.then(() => {
+						// File deleted successfully
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
+			place.est_eat.forEach(async (eat) => {
+				await deleteDoc(doc(db, "establishment", eat));
+			});
+			place.est_visit.forEach(async (visit) => {
+				await deleteDoc(doc(db, "establishment", visit));
+			});
+			place.tips.forEach(async (tip) => {
+				await deleteDoc(doc(db, "establishment", tip));
+			});
+			setData(data.filter((item) => item.place_id != place.place_id));
+			setSearched([]);
+		} else if (type === "blogs") {
 			setData(data.filter((item) => item.item_id != id));
-		} else if (type === "places") {
-			setData(data.filter((item) => item.place_id != id));
 		} else {
 			await setDoc(doc(db, "banned_users", item.email), {
 				...item,
 			});
 
 			setData(data.filter((item) => item.uid != id));
+		}
+
+		if (type === "places") {
+			await deleteDoc(doc(db, type, id.place_id));
+		} else {
+			await deleteDoc(doc(db, type, id));
 		}
 	};
 
@@ -135,6 +177,18 @@ const Admin = () => {
 
 		navigate("/blog/write");
 	};
+	const handleHide = async (place) => {
+		const docRef = doc(db, "review_places", place.place_id);
+		let finalData = {
+			...place,
+			reviewed: false,
+			in_review: true,
+		};
+		let req = await setDoc(docRef, { ...finalData });
+		let del = await deleteDoc(doc(db, "places", place.place_id));
+		setData(data.filter((item) => item.uid != place.place_id));
+		setSearched([]);
+	};
 
 	return (
 		<div className='admin'>
@@ -177,7 +231,9 @@ const Admin = () => {
 			{showItem && (
 				<div className='items-sec '>
 					<div className='search-bar'>
-						<p>Search in {type}</p>
+						<p>
+							Search in {data.length} {type}
+						</p>
 						<div className='bar'>
 							<input
 								type='text'
@@ -218,7 +274,11 @@ const Admin = () => {
 												></i>
 												<i
 													className='fas fa-trash'
-													onClick={() => handleDelete(item.place_id)}
+													onClick={() => handleDelete(item)}
+												></i>
+												<i
+													className='fas fa-eye-slash'
+													onClick={() => handleHide(item)}
 												></i>
 												<i
 													className='fas fa-plus'
@@ -303,17 +363,45 @@ const Admin = () => {
 					</div>
 				)}
 			</div>
-			<div className='app-sec '>
-				<div className='current-pic'>
-					<img src={home.pic} alt='' />
-					<button className='btn-dark' onClick={() => setPicMethod("change")}>
-						Change pic
+			{picChange ? (
+				<div className='app-sec '>
+					<div className='current-pic'>
+						<img src={home.pic} alt='' />
+						<button className='btn-dark' onClick={() => setPicMethod("change")}>
+							Change pic
+						</button>
+						<button className='btn-primary' onClick={() => setPicChange(false)}>
+							Cancel
+						</button>
+					</div>
+
+					{picMethod !== "" && (
+						<SearchImages setPicMethod={setPicMethod} picMethod={picMethod} />
+					)}
+				</div>
+			) : (
+				<div className=' app-sec change'>
+					{" "}
+					<button className='btn-primary' onClick={() => setPicChange(true)}>
+						Change Hero Image
 					</button>
 				</div>
+			)}
 
-				{picMethod !== "" && (
-					<SearchImages setPicMethod={setPicMethod} picMethod={picMethod} />
-				)}
+			<div className='nearby-places-section'>
+				<h2 style={{ color: "white" }}>Review</h2>
+				<div className='nearby-places-cards'>
+					{placeAry.length ? (
+						placeAry.map((place, index) => (
+							<Card3 key={index} place={place} type='review' />
+						))
+					) : (
+						<div className='no-content'>
+							<p>So Empty</p>
+							<i className='fas fa-folder-open'></i>
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

@@ -4,12 +4,14 @@ import { useNavigate, Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Message from "./Message";
 import Loading from "./Loading";
+import ResetPassword from "./ResetPassword";
 
 const Login = () => {
 	const PlaceContext = useContext(placeContext);
 	const { state, setAlert, setLoading, removeLoading } = PlaceContext;
 	const navigate = useNavigate();
 	const [data, setData] = useState({ email: "", password: "" });
+	const [reset, setReset] = useState(false);
 	const auth = getAuth();
 
 	const handleChange = (e) => {
@@ -44,6 +46,7 @@ const Login = () => {
 		<div className='sign-up'>
 			{state.alert !== null && <Message />}
 			{state.loading == true && <Loading />}
+			{reset && <ResetPassword setReset={setReset} />}
 
 			<div className='content'>
 				<h1>Login</h1>
@@ -69,13 +72,16 @@ const Login = () => {
 							value={data.password}
 						/>
 					</div>
+					<a href='#' onClick={() => setReset(true)}>
+						Forgot Password?
+					</a>
 
 					<button className='btn-secondary' type='submit'>
 						Submit
 					</button>
 				</form>
 				<Link to='/sign-up' className='link'>
-					Sign-Up Instead ?
+					Sign-Up Instead?
 				</Link>
 			</div>
 		</div>

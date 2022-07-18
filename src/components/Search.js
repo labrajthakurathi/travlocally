@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import algoliasearch from "algoliasearch/lite";
+import { Link } from "react-router-dom";
 import {
 	InstantSearch,
 	SearchBox,
@@ -56,6 +57,13 @@ function NoResults() {
 			<p>
 				No results for <q>{indexUiState.query}</q>.
 			</p>
+			<Link
+				to='/add-places'
+				className='btn-secondary'
+				style={{ textDecoration: "none" }}
+			>
+				Add Place Instead?
+			</Link>
 		</div>
 	);
 }

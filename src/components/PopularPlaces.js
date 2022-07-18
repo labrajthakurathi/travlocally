@@ -9,7 +9,7 @@ const PopularPlaces = () => {
 	const myInput = useRef("");
 	const [innerWidth, setInnerWidth] = useState("");
 	const [elementWidth, setElementWidth] = useState("");
-	const [scrolled, setScrolled] = useState("");
+	const [scrolled, setScrolled] = useState(-101);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -45,7 +45,7 @@ const PopularPlaces = () => {
 
 		setScrolled(end);
 	};
-	console.log(scrolled);
+
 	return (
 		<div className='top-places-section'>
 			<h2>Popular Places</h2>
@@ -63,7 +63,7 @@ const PopularPlaces = () => {
 			{elementWidth > innerWidth && (
 				<div className='arrow'>
 					<i
-						class={
+						className={
 							scrolled > -100 ? "fas fa-chevron-left" : "fas fa-chevron-right"
 						}
 					></i>

@@ -7,12 +7,20 @@ const BlogCard = ({ blog }) => {
 	const handleClick = (id) => {
 		navigate(`/blog/${id}`);
 	};
+	console.log(blog);
 	return (
 		<div className='blog-card' onClick={() => handleClick(blog.item_id)}>
 			<div className='blog-card-header'>
 				<div className='img-name'>
-					<img src={Blog} alt='' />
-					<p>Lalit Thakurathi</p>
+					{blog.parent_pic ? (
+						<img src={blog.parent_pic} alt='' />
+					) : (
+						<div className='no-pic'>
+							<i className='fas fa-user'></i>
+						</div>
+					)}
+
+					<p>{blog.parent_name}</p>
 				</div>
 				<div className='date'>
 					<p>{blog.posted_on}</p>

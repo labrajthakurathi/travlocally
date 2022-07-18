@@ -54,6 +54,8 @@ const Preview = ({ setShow }) => {
 				read_time: readTime(),
 				posted_on: new Date().toString().split(" ").splice(1, 3).join(" "),
 				parent_id: state.user.uid,
+				parent_pic: state.user.photoURL,
+				parent_name: state.user.displayName,
 				item_id,
 				like: 1,
 				dislike: 0,
@@ -81,17 +83,18 @@ const Preview = ({ setShow }) => {
 		let readTime = Math.ceil(num / 1320);
 		return readTime;
 	};
-	console.log(fullBlog);
+	console.log(state.user);
 	return (
 		<div className='preview'>
 			{loading && <Loading />}
 			<FullBlogCard
 				blog={blogLocal}
 				fullBlog={{
-					name: state.user.displayName,
+					parent_name: state.user.displayName,
 					posted_on: new Date().toString().split(" ").splice(1, 3).join(" "),
 					title: localStorage.getItem("title"),
 					read_time: readTime(),
+					parent_pic: state.user.photoURL,
 				}}
 			/>
 			<div className='preview-buttons'>

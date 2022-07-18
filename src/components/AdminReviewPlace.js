@@ -10,7 +10,7 @@ import Comment from "./Comment";
 import Message from "./Message";
 import LoginMessageModal from "./LoginMessageModal";
 
-const Place = () => {
+const AdminReviewPlace = () => {
 	const PlaceContext = useContext(placeContext);
 	const { addComment, state, setLive } = PlaceContext;
 	const { id } = useParams();
@@ -34,8 +34,7 @@ const Place = () => {
 	};
 
 	useEffect(() => {
-		const ref1 = doc(db, "places", id);
-		const unsub = onSnapshot(doc(db, "places", id), (doc) => {
+		const unsub = onSnapshot(doc(db, "review_places", id), (doc) => {
 			setPlace(doc.data());
 		});
 		return unsub;
@@ -227,26 +226,9 @@ const Place = () => {
 						</div>
 					)}
 				</div>
-				{/* <div className='author'>
-					<p>
-						<strong>Editors :</strong> Lab Raj Thakurathi
-					</p>
-					<div className='editors'>
-						<p>
-							<strong>Editors :</strong>
-						</p>
-						<div className='list'>
-							<p>kuma</p>
-							<p>Jiwan Chanmat</p>
-							<p>Jiwan Chanmat</p>
-							<p>Jiwan Chanmat</p>
-						</div>
-					</div>
-				</div>
-				<button className='btn-secondary'>Request Editor Privillage</button> */}
 			</div>
 		</div>
 	);
 };
 
-export default Place;
+export default AdminReviewPlace;

@@ -9,7 +9,7 @@ const MostViewedPlaces = () => {
 	const myInput = useRef("");
 	const [innerWidth, setInnerWidth] = useState("");
 	const [elementWidth, setElementWidth] = useState("");
-	const [scrolled, setScrolled] = useState("");
+	const [scrolled, setScrolled] = useState(-101);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -59,7 +59,7 @@ const MostViewedPlaces = () => {
 			{elementWidth > innerWidth && (
 				<div className='arrow'>
 					<i
-						class={
+						className={
 							scrolled > -100 ? "fas fa-chevron-left" : "fas fa-chevron-right"
 						}
 					></i>

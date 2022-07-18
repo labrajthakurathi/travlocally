@@ -22,10 +22,16 @@ const FullBlogCard = ({ blog, fullBlog }) => {
 			{blog == undefined && <Loading />}
 			<div className='blog-card-header'>
 				<div className='img-name'>
-					<img src={Blog} alt='' />
+					{fullBlog.parent_pic ? (
+						<img src={fullBlog.parent_pic} alt='' />
+					) : (
+						<div className='no-pic'>
+							<i className='fas fa-user'></i>
+						</div>
+					)}
 
 					<div className='name-time'>
-						<p>Lab Raj Thakurathi</p>
+						<p>{fullBlog.parent_name}</p>
 						<p>{fullBlog.read_time} minutes read</p>
 					</div>
 				</div>

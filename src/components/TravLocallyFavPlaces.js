@@ -9,7 +9,7 @@ const TravLocallyFavPlaces = () => {
 	const myInput = useRef("");
 	const [innerWidth, setInnerWidth] = useState("");
 	const [elementWidth, setElementWidth] = useState("");
-	const [scrolled, setScrolled] = useState("");
+	const [scrolled, setScrolled] = useState(-101);
 
 	useEffect(() => {
 		const getData = async () => {
@@ -27,6 +27,7 @@ const TravLocallyFavPlaces = () => {
 	useEffect(() => {
 		setWidth();
 	}, [travLocallyFav]);
+
 	const setWidth = () => {
 		setInnerWidth(window.innerWidth);
 		setElementWidth(myInput.current.scrollWidth);
@@ -45,6 +46,7 @@ const TravLocallyFavPlaces = () => {
 
 		setScrolled(end);
 	};
+
 	return (
 		<div className='nearby-places-section'>
 			<h2>TravLocally Favorite Places</h2>
@@ -62,7 +64,7 @@ const TravLocallyFavPlaces = () => {
 			{elementWidth > innerWidth && (
 				<div className='arrow'>
 					<i
-						class={
+						className={
 							scrolled > -100 ? "fas fa-chevron-left" : "fas fa-chevron-right"
 						}
 					></i>

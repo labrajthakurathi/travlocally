@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Loading from "./Loading";
-import Bg from "../images/travel.jpg";
+
 import Search from "./Search";
 import {
 	doc,
@@ -53,31 +53,16 @@ const Landing = () => {
 				<div className='overlay'></div>
 				<div className='overlay-content'>
 					<div className='texts'>
-						<h1>LOCAL RECOMMENDATIONS FOR EVERY PLACE YOU GO</h1>
+						<h1>LOCAL RECOMMENDATIONS FOR PLACES YOU WANNA VISIT</h1>
 						<h4>
 							Places to visit, things to do, and places to eat suggested by
-							locals
+							locals in single place
 						</h4>
 					</div>
 
 					<div className='home-search-bar'>
 						<h2>Where You Wanna Go ?</h2>
 						<div className='bar'>
-							{/* <input type='text' placeholder='Enter Destination' />
-
-							<i className='fas fa-search-location'></i> */}
-							{/* <InstantSearch searchClient={searchClient} indexName='places'>
-								<SearchBox
-									onFocus={() => {
-										setShowIcon(false);
-									}}
-									onBlur={() => {
-										setShowIcon(true);
-									}}
-								/>
-
-								<Hits hitComponent={Hit} />
-							</InstantSearch> */}
 							<Search />
 						</div>
 					</div>

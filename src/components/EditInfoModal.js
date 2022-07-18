@@ -1,14 +1,36 @@
-import React, { useState } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import React, { useState, useContext, useEffect } from "react";
+import { doc, updateDoc } from "firebase/firestore";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
-import { storage } from "../firebase";
-import { db } from "../firebase";
+import { storage, db } from "../firebase";
+import {
+	getAuth,
+	updateProfile,
+	onAuthStateChanged,
+	signOut,
+} from "firebase/auth";
+import placeContext from "./context/place/placeContext";
 import PicLoading from "./PicLoading";
+import Message from "./Message";
 
-const EditInfoModal = ({ setEdit, uid }) => {
+const EditInfoModal = ({ setEdit, user }) => {
+	const PlaceContext = useContext(placeContext);
+	const { state, removeUser, setUser } = PlaceContext;
 	const [showUpload, setShowUpload] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [data, setData] = useState({});
+	const [message, setMessage] = useState(false);
+	const auth = getAuth();
+
+	const updateUserState = async () => {
+		onAuthStateChanged(auth, (currentUser) => {
+			currentUser && setUser(currentUser);
+			console.log(currentUser);
+		});
+	};
+
+	const [data, setData] = useState({
+		first_name: user.first_name,
+		last_name: user.last_name,
+	});
 	const handleChange = (e) => {
 		setData({
 			...data,
@@ -19,7 +41,8 @@ const EditInfoModal = ({ setEdit, uid }) => {
 
 	const handleImageUpload = async (e) => {
 		setLoading(true);
-		const userRef = doc(db, "users", uid);
+		const userRef = doc(db, "users", user.uid);
+		const auth = getAuth();
 
 		let file = e.target.files[0];
 		const storageRef = ref(storage, `profiles/${file.name}`);
@@ -27,6 +50,18 @@ const EditInfoModal = ({ setEdit, uid }) => {
 		let url = await getDownloadURL(storageRef);
 
 		let update = await updateDoc(userRef, { profile_pic: url });
+
+		updateProfile(auth.currentUser, {
+			photoURL: url,
+		})
+			.then(() => {
+				// Profile updated!
+				// ...
+			})
+			.catch((error) => {
+				// An error occurred
+				// ...
+			});
 
 		// let file = e.target.files[0];
 		// const storageRef = ref(storage, `profiles/${file.name}`);
@@ -43,19 +78,42 @@ const EditInfoModal = ({ setEdit, uid }) => {
 		// 		},
 		// 	},
 		// ];
-
+		await updateUserState();
 		setLoading(false);
+		setShowUpload(false);
 	};
-	const handleUpload = () => {
-		const userRef = doc(db, "users", uid);
+	const handleUpload = async () => {
+		setLoading(true);
+		const auth = getAuth();
+		const userRef = doc(db, "users", user.uid);
 		const update = updateDoc(userRef, {
 			first_name: data.first_name,
 			last_name: data.last_name,
 		});
+		updateProfile(auth.currentUser, {
+			displayName: `${data.first_name} ${data.last_name}`,
+		})
+			.then(() => {
+				// Profile updated!
+				// ...
+			})
+			.catch((error) => {
+				// An error occurred
+				// ...
+			});
+		await updateUserState();
+
+		setLoading(false);
+		setMessage("Sucessfully Updated");
+		setTimeout(() => {
+			setMessage(false);
+			setEdit(false);
+		}, 3000);
 	};
 
 	return (
-		<div className='confirm-modal '>
+		<div className='confirm-modal' id='message'>
+			{message && <Message setMessage={setMessage} message={message} />}
 			<div className='content'>
 				<div className='content-header'>
 					<i className='fas fa-times' onClick={() => setEdit(false)}></i>
@@ -91,10 +149,7 @@ const EditInfoModal = ({ setEdit, uid }) => {
 								</div>
 							) : (
 								<div className='pic-btn'>
-									<img
-										src='https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwyOTM1MDZ8MHwxfHNlYXJjaHw2fHx0cmF2ZWx8ZW58MHx8fHwxNjU3ODQxMjMw&ixlib=rb-1.2.1&q=80'
-										alt=''
-									/>
+									<img src={user.profile_pic} alt='' />
 									<button
 										className='btn-dark'
 										onClick={() => setShowUpload(true)}
@@ -111,6 +166,7 @@ const EditInfoModal = ({ setEdit, uid }) => {
 								name='first_name'
 								value={data.first_name}
 								onChange={handleChange}
+								required
 							/>
 						</div>
 
@@ -121,6 +177,7 @@ const EditInfoModal = ({ setEdit, uid }) => {
 								name='last_name'
 								value={data.last_name}
 								onChange={handleChange}
+								required
 							/>
 						</div>
 					</form>

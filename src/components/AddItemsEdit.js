@@ -18,7 +18,7 @@ import MobileSearch from "./MobileSearch";
 import AddDetails from "./AddDetails";
 import AddTips from "./AddTips";
 
-const AddPlaces = () => {
+const AddItemsEdit = () => {
 	const PlaceContext = useContext(placeContext);
 	const [barFocus, setBarFocus] = useState(false);
 	const searchBar = useRef();
@@ -40,11 +40,11 @@ const AddPlaces = () => {
 		setScreenWidth(window.innerWidth);
 	});
 	useEffect(() => {
-		getPlace();
+		getPlaceEdit();
 	}, []);
 
 	useEffect(() => {
-		const placeId = localStorage.getItem("place_id");
+		const placeId = localStorage.getItem("edit_place_id");
 		const q = query(
 			collection(db, "establishment"),
 			where("parent_id", "==", placeId),
@@ -60,7 +60,7 @@ const AddPlaces = () => {
 	}, []);
 
 	useEffect(() => {
-		const placeId = localStorage.getItem("place_id");
+		const placeId = localStorage.getItem("edit_place_id");
 		const q = query(
 			collection(db, "establishment"),
 			where("parent_id", "==", placeId),
@@ -75,7 +75,7 @@ const AddPlaces = () => {
 		});
 	}, []);
 	useEffect(() => {
-		const placeId = localStorage.getItem("place_id");
+		const placeId = localStorage.getItem("edit_place_id");
 		const q = query(
 			collection(db, "establishment"),
 			where("parent_id", "==", placeId),
@@ -406,9 +406,12 @@ const AddPlaces = () => {
 										</div>
 									</div>
 									<div className='finish'>
-										<button className='btn-dark' onClick={handleSubmit}>
-											Submit
-										</button>
+										<Link
+											to={`/place/${state.place.place_id}`}
+											className='btn-dark'
+										>
+											Update
+										</Link>
 									</div>
 								</div>
 							)}
@@ -420,4 +423,4 @@ const AddPlaces = () => {
 	);
 };
 
-export default AddPlaces;
+export default AddItemsEdit;

@@ -7,7 +7,7 @@ const Footer = () => {
 				<h4>Find Us</h4>
 				<div className='icons'>
 					<div className='icon-wrapper'>
-						<i class='fab fa-instagram'></i>
+						<i className='fab fa-instagram'></i>
 					</div>
 					<a
 						href='https://pin.it/4CVUi1q'
@@ -15,20 +15,21 @@ const Footer = () => {
 						className='icon-wrapper'
 					>
 						{" "}
-						<i class='fab fa-pinterest'></i>
+						<i className='fab fa-pinterest'></i>
 					</a>
 				</div>
 			</div>
 			<div className='text-sec'>
 				<div className='copyright'>
 					<p>
-						<i class='fas fa-copyright'></i>
-						2022 TravLocally | All Right Reserved <i class='fas fa-lock'></i>
+						<i className='fas fa-copyright'></i>
+						2022 TravLocally | All Right Reserved{" "}
+						<i className='fas fa-lock'></i>
 					</p>
 				</div>
 				<div className='developer'>
 					<p>
-						Designed & Developed with <i class='fas fa-heart'></i>
+						Designed & Developed with <i className='fas fa-heart'></i>
 						by <a href='https://labraj.com/'>Lab Raj Thakurathi</a>
 					</p>
 				</div>

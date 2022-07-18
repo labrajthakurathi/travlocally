@@ -124,6 +124,8 @@ $desk-height: 100vh;
 		width: 100%;
 		@include flex;
 		align-items: flex-start;
+		transition: all 200ms ease-in-out;
+
 		.sudo-logo {
 			height: 40px !important;
 			width: 40px !important;
@@ -143,6 +145,15 @@ $desk-height: 100vh;
 				cursor: pointer;
 
 				transform: scale(1.05);
+			}
+		}
+		.header-profile {
+			height: 40px !important;
+			width: 40px !important;
+			border-radius: 50%;
+			object-fit: cover;
+			&:hover {
+				cursor: pointer;
 			}
 		}
 	}
@@ -274,14 +285,103 @@ $desk-height: 100vh;
 	}
 }
 
+///user header
+.user-logo-wrapper {
+	z-index: 8;
+	// width: 100%;
+	position: absolute;
+	margin-top: 20px;
+	left: 65px;
+	@include flex;
+	align-items: flex-start;
+
+	.fa-angle-down {
+		font-size: 1.5rem;
+		color: white;
+		transition: all 200ms ease-in-out;
+
+		height: 30px;
+		width: 30px;
+		@include flex;
+		background-color: rgba(50, 50, 50, 0.703);
+		border-radius: 50%;
+		transform-origin: 14px 7px;
+		&:hover {
+			cursor: pointer;
+			background-color: rgb(226, 226, 226);
+			color: black;
+		}
+	}
+	.user-menu {
+		position: absolute;
+		top: -100vh;
+		left: -30px;
+		transition: all 300ms ease-in-out;
+
+		width: auto;
+		z-index: 8;
+
+		ul {
+			list-style: none;
+
+			a {
+				text-decoration: none;
+				color: black;
+			}
+			li {
+				background-color: #f6f6f6;
+				margin: 10px;
+				padding: 0 20px;
+				width: 100%;
+				border-radius: 30px;
+				@include flex;
+				flex-direction: row;
+				@include shadow;
+				text-decoration: none;
+				transition: all 200ms ease-in-out;
+
+				i {
+					color: $primary;
+					font-size: 1.2rem;
+					margin-left: 0.5rem;
+				}
+				&:hover {
+					cursor: pointer;
+					transform: scale(1.05);
+				}
+			}
+		}
+	}
+}
+
+.reveal {
+	.fa-angle-down {
+		transform: rotateZ(180deg) translateY(-15px);
+	}
+	.user-menu {
+		top: 20px;
+		left: -50px;
+
+		ul {
+			li {
+			}
+		}
+	}
+}
+/// end user header
+
 //end header
 
 /// footer
 .footer {
+	// position: absolute;
+	// bottom: 0;
+	// left: 0;
 	padding-bottom: 1rem;
 	width: 100%;
 	background-color: white;
 	border-radius: 10px 10px 0 0;
+	z-index: -1 !important;
 
 	.find-sec {
 		margin: 1rem 0;
@@ -384,92 +484,3 @@ $desk-height: 100vh;
 	}
 }
 /// end footer
-
-.user-logo-wrapper {
-	// z-index: -1;
-	// width: 100%;
-	position: absolute;
-	margin-top: 20px;
-	left: 65px;
-	@include flex;
-	align-items: flex-start;
-
-	.fa-angle-down {
-		z-index: 8;
-
-		font-size: 1.5rem;
-		color: white;
-		transition: all 200ms ease-in-out;
-
-		height: 30px;
-		width: 30px;
-		@include flex;
-		background-color: rgba(247, 247, 247, 0.047);
-		border-radius: 50%;
-		transform-origin: 14px 7px;
-		&:hover {
-			cursor: pointer;
-			background-color: rgb(226, 226, 226);
-			color: black;
-		}
-	}
-	.user-menu {
-		position: absolute;
-		top: -100vh;
-		left: -30px;
-		transition: all 300ms ease-in-out;
-
-		width: auto;
-		z-index: 8;
-		ul {
-			list-style: none;
-
-			a {
-				text-decoration: none;
-				color: black;
-			}
-			li {
-				background-color: #f6f6f6;
-				margin: 10px;
-				padding: 0 20px;
-				width: 100%;
-				border-radius: 30px;
-				@include flex;
-				flex-direction: row;
-				@include shadow;
-				text-decoration: none;
-				transition: all 200ms ease-in-out;
-
-				i {
-					color: $primary;
-					font-size: 1.2rem;
-					margin-left: 0.5rem;
-				}
-				&:hover {
-					cursor: pointer;
-					transform: scale(1.05);
-				}
-			}
-		}
-	}
-}
-// .user-header {
-// 	margin-top: 100px;
-// 	z-index: 9;
-// 	margin-left: 500px !important;
-// }
-
-.reveal {
-	.fa-angle-down {
-		transform: rotateZ(180deg) translateY(-15px);
-	}
-	.user-menu {
-		top: 20px;
-		left: -50px;
-
-		ul {
-			li {
-			}
-		}
-	}
-}

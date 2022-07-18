@@ -23,44 +23,25 @@ const Header = () => {
 		setWidth(window.innerWidth);
 	});
 
-	const handleLogout = () => {
-		signOut(auth)
-			.then(() => {})
-			.catch((error) => {
-				console.log(error);
-			});
-		removeUser();
-		navigate("/");
+	const handleRedirect = () => {
+		navigate("/me");
 	};
-
 	return (
 		<div className='header'>
 			{state.user && (
 				<div className='sudo-logo-wrapper reveal'>
-					<div className='sudo-logo'>
-						<i className='fas fa-user'></i>
-					</div>
-					{/* <i className='fa fa-sort-down'></i>
-
-					<div className='user-menu'>
-						<ul>
-							<Link to='/me'>
-								<li onClick={() => setShow(!show)}>
-									<p>My Account</p>
-									<i className='fas fa-user'></i>
-								</li>
-							</Link>
-							<li onClick={() => setShow(!show)}>
-								<p>Edit Account</p>
-								<i className='fas fa-edit'></i>
-								<i className='fas fa-pen-to-square'></i>
-							</li>
-
-							<li onClick={(() => setShow(!show), handleLogout)}>
-								<p>Logout</p> <i className='fas fa-sign-out-alt '></i>
-							</li>
-						</ul>
-					</div> */}
+					{state.user.photoURL ? (
+						<img
+							src={state.user.photoURL}
+							alt={state.user.displayName}
+							className='header-profile'
+							onClick={handleRedirect}
+						/>
+					) : (
+						<div className='sudo-logo' onClick={handleRedirect}>
+							<i className='fas fa-user'></i>
+						</div>
+					)}
 				</div>
 			)}
 
@@ -86,9 +67,15 @@ const Header = () => {
 								Contribute
 							</Link>
 
-							<Link to='/login' onClick={() => setOpen(false)}>
-								Login
-							</Link>
+							{state.user ? (
+								<Link to='/me' onClick={() => setOpen(false)}>
+									Account
+								</Link>
+							) : (
+								<Link to='/login' onClick={() => setOpen(false)}>
+									Login
+								</Link>
+							)}
 						</div>
 						<div
 							className={open ? "burger-icon open" : "burger-icon"}
@@ -101,20 +88,15 @@ const Header = () => {
 					</>
 				) : (
 					<div className='menu-desk'>
-						<Link to='/' onClick={() => setOpen(false)}>
-							Home
-						</Link>
-						<Link to='/blogs' onClick={() => setOpen(false)}>
-							Blogs
-						</Link>
+						<Link to='/'>Home</Link>
+						<Link to='/blogs'>Blogs</Link>
 
-						<Link to='/add-places' onClick={() => setOpen(false)}>
-							Contribute
-						</Link>
-
-						<Link to='/login' onClick={() => setOpen(false)}>
-							Login
-						</Link>
+						<Link to='/add-places'>Contribute</Link>
+						{state.user ? (
+							<Link to='/me'>Account</Link>
+						) : (
+							<Link to='/login'>Login</Link>
+						)}
 					</div>
 				)}
 			</div>

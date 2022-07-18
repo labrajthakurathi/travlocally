@@ -7,22 +7,35 @@ import {
 	getDocs,
 	doc,
 	getDoc,
+	onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { onAuthStateChanged, getAuth, signOut } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
 import Card3 from "./Card3";
 import Admin from "./Admin";
 import UserCurv from "../images/user-cuvr.png";
-import { Link } from "react-router-dom";
 import MostViewedPlaces from "./MostViewedPlaces";
 import EditInfoModal from "./EditInfoModal";
+import Search from "./Search";
 
 const User = () => {
 	const PlaceContext = useContext(placeContext);
-	const { state } = PlaceContext;
+	const { state, removeUser, setUser } = PlaceContext;
 	const [placeAry, setPlaceAry] = useState([]);
-	const [user, setUser] = useState("");
+	const [reviewAry, setReviewAry] = useState([]);
+	const auth = getAuth();
+	const navigate = useNavigate();
+	const [user1, setUser1] = useState("");
 	const [edit, setEdit] = useState(false);
 	const [show, setShow] = useState(false);
+
+	useEffect(() => {
+		onAuthStateChanged(auth, (currentUser) => {
+			currentUser ? setUser(currentUser) : removeUser();
+		});
+	}, []);
+
 	useEffect(() => {
 		const estRef = collection(db, "places");
 
@@ -38,24 +51,46 @@ const User = () => {
 		};
 		getEst();
 	}, []);
+	useEffect(() => {
+		const getReview = async () => {
+			const q = query(
+				collection(db, "review_places"),
+				where("parent_id", "==", `${state.user.uid}`),
+				where("in_review", "==", true)
+			);
+			const unsubscribe = onSnapshot(q, (querySnapshot) => {
+				const arry = [];
+				querySnapshot.forEach((doc) => {
+					arry.push(doc.data());
+				});
+				setReviewAry(arry);
+			});
+		};
+		return getReview();
+	}, []);
 
 	useEffect(() => {
-		const getEst = async () => {
-			const docRef = doc(db, "users", state.user.uid);
-			const docSnap = await getDoc(docRef);
-			if (docSnap.exists()) {
-				setUser(docSnap.data());
-			} else {
-				console.log("No such document!");
-			}
+		const getUser = async () => {
+			const unsub = onSnapshot(doc(db, "users", state.user.uid), (doc) => {
+				setUser1(doc.data());
+			});
 		};
-		getEst();
+		getUser();
 	}, []);
-	console.log(state);
+
+	const handleLogout = () => {
+		signOut(auth)
+			.then(() => {})
+			.catch((error) => {
+				console.log(error);
+			});
+		removeUser();
+		navigate("/login");
+	};
 
 	return (
 		<div className='user'>
-			{edit && <EditInfoModal setEdit={setEdit} uid={state.user.uid} />}
+			{edit && <EditInfoModal setEdit={setEdit} user={user1} />}
 			<div
 				className={
 					show
@@ -84,36 +119,59 @@ const User = () => {
 							<i className='fas fa-pen-to-square'></i>
 						</li>
 
-						<li>
+						<li onClick={handleLogout}>
 							<p>Logout</p> <i className='fas fa-sign-out-alt '></i>
 						</li>
 					</ul>
 				</div>
 			</div>
 
-			{user.cat === "admin" ? (
+			{user1.cat === "admin" ? (
 				<Admin />
 			) : (
 				<div className='content'>
 					{}
 					<div className='top'>
-						<img src={UserCurv} alt='TravLocally asset' />
+						<img
+							src={UserCurv}
+							className='top-sec-img'
+							alt='TravLocally asset'
+						/>
 
 						<div className='search-bar'>
 							<h1 className='heading'>EXPLORE</h1>
-							<div className='search'>
+							{/* <div className='search'>
 								<input type='text' placeholder='Enter city,state or country' />
 								<i className='fas fa-search-location input-icon'></i>
+							</div> */}
+							<div className='bar'>
+								<Search />
 							</div>
 						</div>
 					</div>
 					<div className='bottom-sec'>
+						{reviewAry.length > 0 && (
+							<div className='nearby-places-section'>
+								<h2>Awaiting Review</h2>
+								<div className='nearby-places-cards'>
+									{reviewAry.map((place, index) => (
+										<div className='card-1' key={index}>
+											<img src={place.picture} alt='' />
+											<h4 className={place.desc.length > 24 ? "big-text" : ""}>
+												{place.desc}
+											</h4>
+										</div>
+									))}
+								</div>
+							</div>
+						)}
+
 						<div className='nearby-places-section'>
 							<h2>Your Contribution</h2>
 							<div className='nearby-places-cards'>
 								{placeAry.length ? (
 									placeAry.map((place, index) => (
-										<Card3 key={index} place={place} />
+										<Card3 key={index} place={place} type='user' />
 									))
 								) : (
 									<div className='no-content'>
