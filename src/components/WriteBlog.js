@@ -16,6 +16,7 @@ const WriteBlog = () => {
 	const [progressBar, setProgressBar] = useState(0);
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		if (localStorage.getItem("blog-ui") === null) {
 			localStorage.setItem("blog-ui", blogUi);
 			setBlogUi([]);
@@ -172,6 +173,9 @@ const WriteBlog = () => {
 
 			<div className='tools-buttons'>
 				<div className='tool-selection'>
+					<p>
+						<small>Use these tools multiple times if needed</small>
+					</p>
 					<button onClick={() => handleBlog("1")}>
 						<i className='fas fa-paragraph' data-name='Add Text'></i>
 					</button>

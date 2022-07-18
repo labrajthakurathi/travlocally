@@ -31,14 +31,14 @@ function App() {
 
 						<Route exact path='/sign-up' element={<SignUp />} />
 						<Route exact path='/login' element={<Login />} />
-						{/* <Route element={<PrivateRoutes />}> */}
-						<Route exact path='/me' element={<Account />} />
-						<Route exact path='/blog/write' element={<WriteBlog />} />
-						<Route exact path='/add-places' element={<AddPlaces />} />
-						<Route exact path='/add-items' element={<AddItems />} />
-						<Route exact path='/edit-place' element={<AddItemsEdit />} />
-						<Route exact path='/blog/preview' element={<Preview />} />
-						{/* </Route> */}
+						<Route element={<PrivateRoutes />}>
+							<Route exact path='/me' element={<Account />} />
+							<Route exact path='/blog/write' element={<WriteBlog />} />
+							<Route exact path='/add-places' element={<AddPlaces />} />
+							<Route exact path='/add-items' element={<AddItems />} />
+							<Route exact path='/edit-place' element={<AddItemsEdit />} />
+							<Route exact path='/blog/preview' element={<Preview />} />
+						</Route>
 						<Route
 							exact
 							path='/admin/place/:id'

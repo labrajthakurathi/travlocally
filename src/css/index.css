@@ -2161,7 +2161,7 @@ body {
 .contribute-sec h1 {
   margin-bottom: 1rem;
 }
-.contribute-sec a {
+.contribute-sec #btn {
   width: 70%;
   max-width: 500px;
   text-decoration: none;
@@ -4208,6 +4208,10 @@ body {
   margin: 0.5rem auto;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.214);
   margin-top: 1rem;
+}
+.write-blog .tools-buttons .tool-selection p {
+  position: absolute;
+  bottom: 0px;
 }
 .write-blog .tools-buttons .tool-selection button {
   border: none;

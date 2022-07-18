@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Login from "./Login";
-import { onAuthStateChanged, getAuth } from "firebase/auth";
+
+import placeContext from "./context/place/placeContext";
 
 const PrivateRoutes = () => {
-	const [isAuth, setIsAuth] = useState();
-	const auth = getAuth();
-	useEffect(() => {
-		onAuthStateChanged(auth, (currentUser) => {
-			currentUser ? setIsAuth(true) : setIsAuth(false);
-		});
-	}, []);
-	return isAuth ? <Outlet /> : <Login />;
+	const PlaceContext = useContext(placeContext);
+	const { state } = PlaceContext;
+
+	console.log(state.user);
+
+	return state.user ? <Outlet /> : <Login />;
 };
 
 export default PrivateRoutes;

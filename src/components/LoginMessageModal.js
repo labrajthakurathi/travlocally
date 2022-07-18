@@ -9,7 +9,7 @@ const LoginMessageModal = ({ setShowModal }) => {
 					<i className='fas fa-times' onClick={() => setShowModal(false)}></i>
 				</div>
 				<div className='content-body'>
-					<h3>Login to Comment</h3>
+					<h3>Login Required</h3>
 					<div className='buttons'>
 						<button className='btn-primary' onClick={() => setShowModal(false)}>
 							Cancel
