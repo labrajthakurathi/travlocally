@@ -129,7 +129,7 @@ const ReadBlog = () => {
 						)}
 					</div>
 				</div>
-				<button className='btn-primary visit-btn'>Visit Listing</button>
+				{/* <button className='btn-primary visit-btn'>Visit Listing</button> */}
 			</div>
 		</div>
 	);
