@@ -66,7 +66,12 @@ const Blogs = () => {
 					</h2>
 
 					<div className='search-bar'>
-						<input type='text' id='blog-search' placeholder='Enter the city' />
+						<input
+							type='text'
+							id='blog-search'
+							placeholder='Not enough data to search'
+							disabled
+						/>
 						<i className='fas fa-search-location'></i>
 					</div>
 				</div>
