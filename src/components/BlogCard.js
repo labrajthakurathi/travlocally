@@ -1,5 +1,4 @@
 import React from "react";
-import Blog from "../images/blog.jpg";
 import { useNavigate } from "react-router-dom";
 
 const BlogCard = ({ blog }) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
-import { db, onSnapshot, storage } from "../firebase";
+import { doc } from "firebase/firestore";
+import { db, onSnapshot } from "../firebase";
 import Loading from "./Loading";
 import PlaceCard from "./PlaceCard";
 import placeContext from "./context/place/placeContext";

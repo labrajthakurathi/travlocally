@@ -6,10 +6,7 @@ const AddTips = ({ setIsTips, isTips }) => {
 	const PlaceContext = useContext(placeContext);
 	const { state, uploadTips } = PlaceContext;
 	const [tip, setTip] = useState("");
-	// const onSubmit = (e) => {
-	// 	e.preventDefault();
-	// 	console.log(tip);
-	// };
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 		let uid = uuidv4();

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import placeContext from "./context/place/placeContext";
 import LoginMessageModal from "./LoginMessageModal";
 

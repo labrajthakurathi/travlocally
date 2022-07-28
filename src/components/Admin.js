@@ -15,9 +15,7 @@ import { getStorage, ref, deleteObject } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import Loading from "./Loading";
-
 import AssingModal from "./AssingModal";
-import PhotoSelectUpload from "./PhotoSelectUpload";
 import SearchImages from "./SearchImages";
 import Card3 from "./Card3";
 

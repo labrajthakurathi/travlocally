@@ -1,13 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { storage, db } from "../firebase";
-import {
-	getAuth,
-	updateProfile,
-	onAuthStateChanged,
-	signOut,
-} from "firebase/auth";
+import { getAuth, updateProfile, onAuthStateChanged } from "firebase/auth";
 import placeContext from "./context/place/placeContext";
 import PicLoading from "./PicLoading";
 import Message from "./Message";
@@ -63,21 +58,6 @@ const EditInfoModal = ({ setEdit, user }) => {
 				// ...
 			});
 
-		// let file = e.target.files[0];
-		// const storageRef = ref(storage, `profiles/${file.name}`);
-		// let upload = await uploadBytes(storageRef, file);
-		// let url = await getDownloadURL(storageRef);
-
-		// let newOne = [
-		// 	...nu,
-		// 	{
-		// 		...blog,
-		// 		content: {
-		// 			pic_url: url,
-		// 			pic_by: false,
-		// 		},
-		// 	},
-		// ];
 		await updateUserState();
 		setLoading(false);
 		setShowUpload(false);

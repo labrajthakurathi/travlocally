@@ -1,5 +1,5 @@
 import React from "react";
-import LoginMessageModal from "./LoginMessageModal";
+
 const FeedbackSec = ({
 	isLiked,
 	isDisliked,
@@ -8,7 +8,7 @@ const FeedbackSec = ({
 	likeDislike,
 	item,
 	likeRatio,
-	showModal,
+
 	collection,
 }) => {
 	return (

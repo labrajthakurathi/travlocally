@@ -3,7 +3,7 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import Loading from "./Loading";
 
-const AssingModal = ({ currentItem, setCurrentItem, setShowModal }) => {
+const AssingModal = ({ currentItem, setShowModal }) => {
 	const [loading, setLoading] = useState(false);
 	const handleAssign = async (cat) => {
 		setLoading(true);

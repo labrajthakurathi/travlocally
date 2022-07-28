@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import placeContext from "./context/place/placeContext";
 import ConfirmModal from "./ConfirmModal";
-import { doc, getDoc, updateDoc, setDoc } from "firebase/firestore";
-import { db, onSnapshot, storage } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Comment = ({ item, place, type }) => {
 	const PlaceContext = useContext(placeContext);

@@ -1,10 +1,6 @@
-import React, { useContext } from "react";
-import placeContext from "./context/place/placeContext";
+import React from "react";
 
 const ConfirmModal = ({ setConfirm, id, place, deleteComment }) => {
-	// const PlaceContext = useContext(placeContext);
-	// const { state, removeAlert } = PlaceContext;
-
 	return (
 		<div className='confirm-modal '>
 			<div className='content'>
