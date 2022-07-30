@@ -28,7 +28,6 @@ const Blogs = () => {
 			let blogArry = [];
 			const querySnapshot = await getDocs(collection(db, "blogs"));
 			querySnapshot.forEach((doc) => {
-				// doc.data() is never undefined for query doc snapshots
 				blogArry.push(doc.data());
 			});
 			setBlogs(blogArry);

@@ -1,48 +1,3 @@
-// import React, { useEffect, useState } from "react";
-
-// const Paragraph = ({ setBlogUi, blog, blogUi }) => {
-// 	const [text1, setText1] = useState(blog);
-
-// 	const handleChange = (e) => {
-// 		setText1({ ...text1, content: e.target.value });
-// 	};
-// 	const handleSubmit = () => {
-// 		if (text1.content != "") {
-// 			let nu = blogUi.filter((ui) => ui.pos !== text1.pos);
-// 			let newOne = [...nu, { ...text1 }];
-// 			let sortedData = newOne.sort((a, b) => {
-// 				return a.pos - b.pos;
-// 			});
-// 			setBlogUi(sortedData);
-// 			let dta = JSON.stringify(sortedData);
-
-// 			blogUi && JSON.stringify(localStorage.setItem("blog-ui", dta));
-// 		}
-// 	};
-
-// 	return (
-// 		<div className='title'>
-// 			<label htmlFor='title'>Paragraph</label>
-
-// 			<textarea
-// 				type='text'
-// 				rows='6'
-// 				id='title'
-// 				value={text1.content}
-// 				onChange={handleChange}
-// 				onBlur={handleSubmit}
-// 			/>
-// 			<div className='para-tools'>
-// 				<i class='fas fa-bold'></i>
-// 				<i class='fas fa-italic'></i>
-// 				<i class='fas fa-link'></i>
-// 			</div>
-// 		</div>
-// 	);
-// };
-
-// export default Paragraph;
-
 import React from "react";
 
 import {
@@ -57,15 +12,6 @@ class Paragraph extends React.Component {
 	constructor(props) {
 		super(props);
 		const content = window.localStorage.getItem(`content${props.blog.pos}`);
-
-		// if (content) {
-		// 	this.state.editorState = EditorState.createWithContent(
-		// 		convertFromRaw(JSON.parse(content))
-		// 	);
-		// } else {
-		// 	this.state.editorState = EditorState.createEmpty();
-		// }
-
 		if (content) {
 			this.state = {
 				editorState: EditorState.createWithContent(
@@ -144,9 +90,6 @@ class Paragraph extends React.Component {
 
 	render() {
 		const { editorState } = this.state;
-
-		// If the user changes block type before entering any text, we can
-		// either style the placeholder or hide it. Let's just hide it now.
 		let className = "RichEditor-editor";
 		var contentState = editorState.getCurrentContent();
 		if (!contentState.hasText()) {
@@ -185,7 +128,6 @@ class Paragraph extends React.Component {
 	}
 }
 
-// Custom overrides for "code" style.
 const styleMap = {
 	CODE: {
 		backgroundColor: "rgba(0, 0, 0, 0.05)",

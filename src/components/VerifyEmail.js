@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { getAuth } from "firebase/auth";
 
 const VerifyEmail = ({ setVerify }) => {

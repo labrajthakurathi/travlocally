@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Loading from "./Loading";
-
 import Search from "./Search";
-import {
-	doc,
-	deleteDoc,
-	collection,
-	getDocs,
-	setDoc,
-	getDoc,
-} from "firebase/firestore";
+import { doc } from "firebase/firestore";
 import { db, onSnapshot } from "../firebase";
 
 const Landing = () => {
@@ -31,11 +23,6 @@ const Landing = () => {
 			setHome(doc.data());
 		});
 	};
-	// (async () => {
-	// 	const unsub = await onSnapshot(doc(db, "app", "home"), (doc) => {
-	// 		setHome(doc.data());
-	// 	});
-	// })();
 
 	return (
 		<div className='landing-page'>
@@ -48,7 +35,6 @@ const Landing = () => {
 						alt='TravLocally Hero picture'
 						onLoad={handleLoad}
 					/>
-					{/* <img src={Bg} alt='TravLocally Hero picture' onLoad={handleLoad} /> */}
 				</div>
 				<div className='overlay'></div>
 				<div className='overlay-content'>

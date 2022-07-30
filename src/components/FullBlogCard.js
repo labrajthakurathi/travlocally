@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
 import { Editor, EditorState, convertFromRaw } from "draft-js";
-import Blog from "../images/blog.jpg";
 import placeContext from "./context/place/placeContext";
 import Loading from "./Loading";
 

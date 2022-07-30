@@ -19,11 +19,7 @@ const ReadBlog = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [isLiked, setIsLiked] = useState(false);
 	const [isDisliked, setIsDisliked] = useState(false);
-
-	///
-
 	const likeRatio = parseInt((blog.like / (blog.like + blog.dislike)) * 100);
-
 	useEffect(() => {
 		handleLikedDisliked();
 	}, [state]);
@@ -129,7 +125,6 @@ const ReadBlog = () => {
 						)}
 					</div>
 				</div>
-				{/* <button className='btn-primary visit-btn'>Visit Listing</button> */}
 			</div>
 		</div>
 	);

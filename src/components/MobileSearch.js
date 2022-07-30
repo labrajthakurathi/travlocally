@@ -1,8 +1,6 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
 import placeContext from "./context/place/placeContext";
 import AddDetails from "./AddDetails";
-import Loading from "./Loading";
 import Message from "./Message";
 
 const MobileSearch = ({ setBarFocus }) => {
@@ -72,7 +70,6 @@ const MobileSearch = ({ setBarFocus }) => {
 							type='text'
 							placeholder='Enter city,state or country'
 							onChange={handleChange}
-							// ref={searchBar}
 						/>
 
 						<i className='fas fa-search-location input-icon'></i>

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import SearchImages from "./SearchImages";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../firebase";
-import Loading from "./Loading";
 import PicLoading from "./PicLoading";
 
 const PhotoSelectUpload = ({ index, setBlogUi, blog, blogUi }) => {

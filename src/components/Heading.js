@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 const Heading = ({ setBlogUi, blog, blogUi }) => {
 	const [text1, setText1] = useState(blog);
-
 	const handleChange = (e) => {
 		setText1({ ...text1, content: e.target.value });
 	};

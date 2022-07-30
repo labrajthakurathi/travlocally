@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const TagPlace = ({ setShowTagSearch, setTag, setProgressBar }) => {
 	const [pred, setPred] = useState("");
-
 	const handleChange = (e) => {
 		if (e.target.value === "") setPred("");
 		const displaySuggestions = function (predictions, status) {

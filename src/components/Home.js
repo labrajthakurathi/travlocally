@@ -11,7 +11,6 @@ const Home = () => {
 			<Landing />
 			<PopularPlaces />
 			<MostViewedPlaces />
-
 			<TravLocallyFavPlaces />
 			<ContributeSec />
 		</div>

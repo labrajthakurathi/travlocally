@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { onAuthStateChanged, getAuth, signOut } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-
 import placeContext from "./context/place/placeContext";
 
 const Header = () => {

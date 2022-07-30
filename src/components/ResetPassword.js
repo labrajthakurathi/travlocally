@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import Loading from "./Loading";
 import PicLoading from "./PicLoading";
 
 const ResetPassword = ({ setReset }) => {
@@ -40,7 +39,6 @@ const ResetPassword = ({ setReset }) => {
 				});
 				console.log(error.code);
 				console.log(error.message);
-				// ..
 			});
 	};
 
