@@ -287,10 +287,6 @@ const PlaceState = (props) => {
 	};
 	//end add comment
 
-	//delete comment
-
-	//end delete comment
-
 	//add blog comment
 	const addBlogComment = async (blog, comment, setComment) => {
 		const docRef = doc(db, "blogs", blog.blog_id);

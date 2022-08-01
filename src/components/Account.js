@@ -8,7 +8,6 @@ import User from "./User";
 const Account = () => {
 	const PlaceContext = useContext(placeContext);
 	const { setAlert, state } = PlaceContext;
-
 	const [verify, setVerify] = useState(null);
 	useEffect(() => {
 		const auth = getAuth();

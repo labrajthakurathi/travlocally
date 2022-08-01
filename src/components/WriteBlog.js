@@ -135,7 +135,7 @@ const WriteBlog = () => {
 					</div>
 				)}
 			</div>
-			{/* {progressBar >= 33 && ( */}
+		
 			<div className='title'>
 				<label htmlFor='title'>Blog Title</label>
 				<textarea

@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
 import placeContext from "./context/place/placeContext";
 import Loading from "./Loading";
 
@@ -7,14 +6,11 @@ const AddDetails = ({ setCurrentItem, currentItem, setPred, isEat }) => {
 	const PlaceContext = useContext(placeContext);
 	const { uploadItem } = PlaceContext;
 	const [about, setAbout] = useState("");
-
 	const handleChange = (e) => {
 		setAbout(e.target.value);
 	};
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
 		const type = isEat ? "eat" : "visit";
 		var map = new window.google.maps.Map(
 			document.getElementById("map-canvas"),
@@ -37,7 +33,6 @@ const AddDetails = ({ setCurrentItem, currentItem, setPred, isEat }) => {
 
 		let service = new window.google.maps.places.PlacesService(map);
 		service.getDetails(request, callback);
-
 		function callback(place, status) {
 			if (status == window.google.maps.places.PlacesServiceStatus.OK) {
 				let lng = place.geometry.location.lng();
