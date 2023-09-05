@@ -159,6 +159,9 @@
 .card-2 {
 	@include flex;
 	margin: 0.5rem;
+	&:hover {
+		cursor: pointer;
+	}
 	@include tab {
 		margin: 0.7rem;
 	}

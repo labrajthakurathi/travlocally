@@ -7,8 +7,14 @@ const Card1 = ({ place }) => {
 		navigate(`/place/${place.place_id}`);
 	};
 	return (
-		<div className='card-1' onClick={handleClick}>
-			<img src={place.picture} alt='' />
+		<div
+			className='card-1'
+			onClick={handleClick}
+		>
+			<img
+				src={place.picture}
+				alt=''
+			/>
 			<h4 className={place.desc.length > 24 ? "big-text" : ""}>{place.desc}</h4>
 		</div>
 	);
