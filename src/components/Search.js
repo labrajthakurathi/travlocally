@@ -11,13 +11,16 @@ import Hit from "./Hit";
 
 const Search = () => {
 	const searchClient = algoliasearch(
-		"ZHTV4FUZ03",
-		"bb5d13be06f5cb1c14b85b65f0c343c5"
+		"9L78RFN97I",
+		"8e6987b6a9dfde886e43580734bd4422",
 	);
 	const [showIcon, setShowIcon] = useState(true);
 	return (
 		<>
-			<InstantSearch searchClient={searchClient} indexName='places'>
+			<InstantSearch
+				searchClient={searchClient}
+				indexName='places'
+			>
 				<SearchBox placeholder='Enter the city or country...' />
 				<EmptyQueryBoundary fallback={null}>
 					<NoResultsBoundary fallback={<NoResults />}>
